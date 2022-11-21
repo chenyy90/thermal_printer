@@ -3,7 +3,7 @@
 
 ** ELF Header Information
 
-    File Name: .\Objects\YC3121_Keil.axf
+    File Name: .\Objects\thermal_printer.axf
 
     Machine class: ELFCLASS32 (32-bit)
     Data encoding: ELFDATA2LSB (Little endian)
@@ -31,8 +31,8 @@
     Program header entries: 3
     Section header entries: 18
 
-    Program header offset: 77292 (0x00012dec)
-    Section header offset: 77388 (0x00012e4c)
+    Program header offset: 77300 (0x00012df4)
+    Section header offset: 77396 (0x00012e54)
 
     Section header string table index: 17
 
@@ -2857,7 +2857,7 @@
 
 
 ** Section #16 '.comment' (SHT_PROGBITS)
-    Size   : 7552 bytes
+    Size   : 7560 bytes
 
 
 ** Section #17 '.shstrtab' (SHT_STRTAB)

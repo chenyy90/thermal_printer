@@ -33,9 +33,9 @@ int main(int argc, char **argv)
                 printf("%02x, ", list_get->segment_data[i][byte]);
             }
             printf("\r\n");
-            middle_mmu_free(list_get->segment_data[i]);
         }
     }
+    middle_print_list_destory(list_get);
 
     return 0;
 }

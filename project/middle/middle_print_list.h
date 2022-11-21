@@ -18,10 +18,11 @@ typedef struct
     uint32_t motor_speed_time;                         // 当前电机速度
 } middle_print_list_struct;
 
-int middle_print_list_free(void);
-int middle_print_list_empty(void);
+int middle_print_list_is_free(void);
+int middle_print_list_is_empty(void);
 int middle_print_list_put(uint8_t *line_data, uint16_t line_datalen);
 middle_print_list_struct *middle_print_list_get(void);
+int middle_print_list_destory(middle_print_list_struct *p);
 int middle_print_list_init(void);
 
 #endif

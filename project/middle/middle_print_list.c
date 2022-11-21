@@ -161,7 +161,7 @@ static int middle_print_line_data_parse(middle_print_list_struct *list_data, uin
 
 
 // 判断打印列表是否空闲
-int middle_print_list_free(void)
+int middle_print_list_is_free(void)
 {
     int free_zone = 0;
 
@@ -179,7 +179,7 @@ int middle_print_list_free(void)
 }
 
 // 判断打印列表是否为空
-int middle_print_list_empty(void)
+int middle_print_list_is_empty(void)
 {
     return (mid_printlistm.list_get_index == mid_printlistm.list_put_index);
 }
@@ -194,7 +194,7 @@ int middle_print_list_put(uint8_t *line_data, uint16_t line_datalen)
     }
 
     uint16_t line_num_total = line_datalen / MIDDLE_PRINT_DATA_SIZE;
-    if (line_num_total > middle_print_list_free())
+    if (line_num_total > middle_print_list_is_free())
     {
         printf("print line data size error\r\n");
         return -1;
@@ -227,7 +227,7 @@ int middle_print_list_put(uint8_t *line_data, uint16_t line_datalen)
 // 获取打印列表数据
 middle_print_list_struct *middle_print_list_get(void)
 {
-    if (middle_print_list_empty())
+    if (middle_print_list_is_empty())
     {
         return NULL;
     }
@@ -238,6 +238,20 @@ middle_print_list_struct *middle_print_list_get(void)
         mid_printlistm.list_get_index  = 0;
     }
     return list;
+}
+
+// 打印列表释放
+int middle_print_list_destory(middle_print_list_struct *p)
+{
+    if (p)
+    {
+        for (int i=0; i<p->segment_number; i++)
+        {
+            middle_mmu_free(p->segment_data[i]);
+        }
+        return 0;
+    }
+    return -1;
 }
 
 // 打印列表初始化

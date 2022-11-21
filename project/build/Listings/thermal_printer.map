@@ -39,8 +39,10 @@ Section Cross References
     middle_print_list.o(.text) refers to memseta.o(.text) for __aeabi_memclr4
     middle_print_list.o(.text) refers to middle_print_list.o(.constdata) for .constdata
     middle_print_list.o(.text) refers to middle_print_list.o(.bss) for .bss
-    middle_print.o(.text) refers to hal_print.o(.text) for hal_print_stop
+    middle_print.o(.text) refers to hal_print.o(.text) for hal_print_motor_stop
+    middle_print.o(.text) refers to middle_print_list.o(.text) for middle_print_list_destory
     middle_print.o(.text) refers to middle_print.o(.bss) for .bss
+    middle_print.o(.text) refers to middle_print.o(.data) for .data
     middle_mmu.o(.text) refers to memseta.o(.text) for __aeabi_memclr
     middle_mmu.o(.text) refers to printfa.o(i.__0printf) for __2printf
     middle_mmu.o(.text) refers to middle_mmu.o(.bss) for .bss
@@ -322,11 +324,13 @@ Removing Unused input sections from the image.
     Removing startup.o(HEAP), (0 bytes).
     Removing hal_log.o(.text), (138 bytes).
     Removing hal_print.o(.text), (24 bytes).
-    Removing middle_print_list.o(.text), (632 bytes).
+    Removing middle_print_list.o(.text), (672 bytes).
     Removing middle_print_list.o(.bss), (484 bytes).
     Removing middle_print_list.o(.constdata), (256 bytes).
-    Removing middle_print.o(.text), (60 bytes).
+    Removing middle_print.o(.text), (272 bytes).
     Removing middle_print.o(.bss), (36 bytes).
+    Removing middle_print.o(.constdata), (38 bytes).
+    Removing middle_print.o(.data), (4 bytes).
     Removing middle_mmu.o(.text), (184 bytes).
     Removing middle_mmu.o(.bss), (6528 bytes).
     Removing dadd.o(.text), (356 bytes).
@@ -337,7 +341,7 @@ Removing Unused input sections from the image.
     Removing depilogue.o(.text), (190 bytes).
     Removing depilogue.o(i.__ARM_clz), (46 bytes).
 
-18 unused section(s) (total 75022 bytes) removed from the image.
+20 unused section(s) (total 75316 bytes) removed from the image.
 
 ==============================================================================
 
@@ -676,34 +680,34 @@ Memory Map of the image
 
     0x00020000   0x010018ac   0x00000018   Data   RW          110    .data               yc_exti.o
     0x00020018        -       0x00000800   Zero   RW          127    .bss                yc_uart.o
-    0x00020818        -       0x0000000a   Zero   RW          263    .bss                main.o
+    0x00020818        -       0x0000000a   Zero   RW          267    .bss                main.o
 
 
     Execution Region ER_IROM4 (Exec base: 0x01000400, Load base: 0x01000400, Size: 0x000014ac, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x01000400   0x01000400   0x00000000   Code   RO          284  * .ARM.Collect$$$$00000000  mc_p.l(entry.o)
-    0x01000400   0x01000400   0x00000004   Code   RO          557    .ARM.Collect$$$$00000001  mc_p.l(entry2.o)
-    0x01000404   0x01000404   0x00000004   Code   RO          560    .ARM.Collect$$$$00000004  mc_p.l(entry5.o)
-    0x01000408   0x01000408   0x00000000   Code   RO          562    .ARM.Collect$$$$00000008  mc_p.l(entry7b.o)
-    0x01000408   0x01000408   0x00000000   Code   RO          564    .ARM.Collect$$$$0000000A  mc_p.l(entry8b.o)
-    0x01000408   0x01000408   0x00000008   Code   RO          565    .ARM.Collect$$$$0000000B  mc_p.l(entry9a.o)
-    0x01000410   0x01000410   0x00000000   Code   RO          567    .ARM.Collect$$$$0000000D  mc_p.l(entry10a.o)
-    0x01000410   0x01000410   0x00000000   Code   RO          569    .ARM.Collect$$$$0000000F  mc_p.l(entry11a.o)
-    0x01000410   0x01000410   0x00000004   Code   RO          558    .ARM.Collect$$$$00002712  mc_p.l(entry2.o)
+    0x01000400   0x01000400   0x00000000   Code   RO          288  * .ARM.Collect$$$$00000000  mc_p.l(entry.o)
+    0x01000400   0x01000400   0x00000004   Code   RO          561    .ARM.Collect$$$$00000001  mc_p.l(entry2.o)
+    0x01000404   0x01000404   0x00000004   Code   RO          564    .ARM.Collect$$$$00000004  mc_p.l(entry5.o)
+    0x01000408   0x01000408   0x00000000   Code   RO          566    .ARM.Collect$$$$00000008  mc_p.l(entry7b.o)
+    0x01000408   0x01000408   0x00000000   Code   RO          568    .ARM.Collect$$$$0000000A  mc_p.l(entry8b.o)
+    0x01000408   0x01000408   0x00000008   Code   RO          569    .ARM.Collect$$$$0000000B  mc_p.l(entry9a.o)
+    0x01000410   0x01000410   0x00000000   Code   RO          571    .ARM.Collect$$$$0000000D  mc_p.l(entry10a.o)
+    0x01000410   0x01000410   0x00000000   Code   RO          573    .ARM.Collect$$$$0000000F  mc_p.l(entry11a.o)
+    0x01000410   0x01000410   0x00000004   Code   RO          562    .ARM.Collect$$$$00002712  mc_p.l(entry2.o)
     0x01000414   0x01000414   0x00000090   Code   RO           14    .text               misc.o
     0x010004a4   0x010004a4   0x00000284   Code   RO           48    .text               system.o
     0x01000728   0x01000728   0x000005c8   Code   RO           70    .text               yc_gpio.o
     0x01000cf0   0x01000cf0   0x0000024c   Code   RO          108    .text               yc_exti.o
     0x01000f3c   0x01000f3c   0x000004e4   Code   RO          126    .text               yc_uart.o
-    0x01001420   0x01001420   0x0000020c   Code   RO          262    .text               main.o
-    0x0100162c   0x0100162c   0x0000002c   Code   RO          287    .text               mc_p.l(uidiv.o)
-    0x01001658   0x01001658   0x00000024   Code   RO          585    .text               mc_p.l(init.o)
+    0x01001420   0x01001420   0x0000020c   Code   RO          266    .text               main.o
+    0x0100162c   0x0100162c   0x0000002c   Code   RO          291    .text               mc_p.l(uidiv.o)
+    0x01001658   0x01001658   0x00000024   Code   RO          589    .text               mc_p.l(init.o)
     0x0100167c   0x0100167c   0x0000001a   Code   RO           80    i.__ARM_common_switch8  yc_gpio.o
-    0x01001696   0x01001696   0x0000000e   Code   RO          599    i.__scatterload_copy  mc_p.l(handlers.o)
-    0x010016a4   0x010016a4   0x00000002   Code   RO          600    i.__scatterload_null  mc_p.l(handlers.o)
-    0x010016a6   0x010016a6   0x0000000e   Code   RO          601    i.__scatterload_zeroinit  mc_p.l(handlers.o)
+    0x01001696   0x01001696   0x0000000e   Code   RO          603    i.__scatterload_copy  mc_p.l(handlers.o)
+    0x010016a4   0x010016a4   0x00000002   Code   RO          604    i.__scatterload_null  mc_p.l(handlers.o)
+    0x010016a6   0x010016a6   0x0000000e   Code   RO          605    i.__scatterload_zeroinit  mc_p.l(handlers.o)
     0x010016b4   0x010016b4   0x00000008   Data   RO           49    .constdata          system.o
     0x010016bc   0x010016bc   0x000000ae   Data   RO           71    .constdata          yc_gpio.o
     0x0100176a   0x0100176a   0x00000027   Data   RO          109    .constdata          yc_exti.o
@@ -711,7 +715,7 @@ Memory Map of the image
     0x01001861   0x01001861   0x00000003   PAD
     0x01001864   0x01001864   0x00000025   Data   RO           50    .conststring        system.o
     0x01001889   0x01001889   0x00000003   PAD
-    0x0100188c   0x0100188c   0x00000020   Data   RO          597    Region$$Table       anon$$obj.o
+    0x0100188c   0x0100188c   0x00000020   Data   RO          601    Region$$Table       anon$$obj.o
 
 
 ==============================================================================
