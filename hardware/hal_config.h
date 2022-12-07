@@ -7,6 +7,7 @@
 #include <stdarg.h>
 
 #include "yc3121.h"
+#include "yc_sysctrl.h"
 #include "yc_systick.h"
 #include "yc_adc.h"
 #include "yc_gpio.h"

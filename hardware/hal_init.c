@@ -10,6 +10,9 @@
 
 int hal_init(void)
 {
+    /* System Clock: 96MHz*/
+    SYSCTRL_HCLKConfig(SYSCTRL_HCLK_Div_None);
+
     hal_systick_init();
     hal_log_init();
     hal_log_printf("halo printer ...\r\n");
