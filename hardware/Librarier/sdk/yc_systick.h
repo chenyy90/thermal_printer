@@ -48,7 +48,7 @@ void SysTick_Delay_Us(uint32_t us);
  */
 void SysTick_Config(uint32_t ReloadValue);
 
-void SysTick_disable();
+void SysTick_disable(void);
 
 /**
  * @brief  get the current value of SystickCount(SystickCount plus one for every overflow interrupt)

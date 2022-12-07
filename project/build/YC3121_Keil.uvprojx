@@ -419,6 +419,51 @@
               <FilePath>..\..\hardware\Librarier\sdk\yc_uart.c</FilePath>
             </File>
             <File>
+              <FileName>yc_systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\hardware\Librarier\sdk\yc_systick.c</FilePath>
+            </File>
+            <File>
+              <FileName>yc_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\hardware\Librarier\sdk\yc_adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>yc_sysctrl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\hardware\Librarier\sdk\yc_sysctrl.c</FilePath>
+            </File>
+            <File>
+              <FileName>yc_timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\hardware\Librarier\sdk\yc_timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>yc_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\hardware\Librarier\sdk\yc_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>bt_code.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\hardware\Librarier\core\bt_code.c</FilePath>
+            </File>
+            <File>
+              <FileName>yc_otp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\hardware\Librarier\sdk\yc_otp.c</FilePath>
+            </File>
+            <File>
+              <FileName>yc_ipc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\hardware\Librarier\sdk\yc_ipc.c</FilePath>
+            </File>
+            <File>
+              <FileName>yc_power.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\hardware\Librarier\sdk\yc_power.c</FilePath>
+            </File>
+            <File>
               <FileName>hal_log.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\hardware\hal_log.c</FilePath>
@@ -427,6 +472,41 @@
               <FileName>hal_print.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\hardware\hal_print.c</FilePath>
+            </File>
+            <File>
+              <FileName>hal_systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\hardware\hal_systick.c</FilePath>
+            </File>
+            <File>
+              <FileName>hal_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\hardware\hal_adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>hal_time.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\hardware\hal_time.c</FilePath>
+            </File>
+            <File>
+              <FileName>hal_button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\hardware\hal_button.c</FilePath>
+            </File>
+            <File>
+              <FileName>hal_led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\hardware\hal_led.c</FilePath>
+            </File>
+            <File>
+              <FileName>hal_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\hardware\hal_init.c</FilePath>
+            </File>
+            <File>
+              <FileName>yc_lpm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\hardware\Librarier\sdk\yc_lpm.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -4,8 +4,10 @@ Component: ARM Compiler 5.06 update 6 (build 750) Tool: armlink [4d35ed]
 
 Section Cross References
 
-    flash_start.o(.flash_start) refers to main.o(.text) for UART0_IRQHandler
+    flash_start.o(.flash_start) refers to hal_systick.o(.text) for SYSTICK_IRQHandler
     flash_start.o(.flash_start) refers to yc_exti.o(.text) for GPIO_IRQHandler
+    flash_start.o(.flash_start) refers to hal_print.o(.text) for TIMER4_IRQHandler
+    flash_start.o(.flash_start) refers to hal_time.o(.text) for TIMER6_IRQHandler
     flash_start.o(.flash_start) refers to entry.o(.ARM.Collect$$$$00000000) for __main
     startup.o(RESET) refers to startup.o(.text) for reset_handler
     startup.o(RESET) refers to flash_start.o(.flash_start) for hard_fault_handler
@@ -20,17 +22,73 @@ Section Cross References
     yc_exti.o(.text) refers to system.o(.text) for _assert_handler
     yc_exti.o(.text) refers to yc_gpio.o(.text) for GPIO_ReadInputDataBit
     yc_exti.o(.text) refers to flash_start.o(.flash_start) for EXTI0_IRQHandler
-    yc_exti.o(.text) refers to main.o(.text) for EXTI2_IRQHandler
     yc_exti.o(.text) refers to yc_exti.o(.constdata) for .constdata
     yc_exti.o(.text) refers to yc_exti.o(.data) for .data
     yc_uart.o(.text) refers to system.o(.text) for _assert_handler
     yc_uart.o(.text) refers to uidiv.o(.text) for __aeabi_uidivmod
     yc_uart.o(.text) refers to yc_uart.o(.constdata) for .constdata
     yc_uart.o(.text) refers to yc_uart.o(.bss) for .bss
+    yc_systick.o(.text) refers to system.o(.text) for _assert_handler
+    yc_systick.o(.text) refers to uidiv.o(.text) for __aeabi_uidivmod
+    yc_systick.o(.text) refers to yc_systick.o(.constdata) for .constdata
+    yc_systick.o(.text) refers to yc_systick.o(.data) for .data
+    yc_adc.o(.text) refers to system.o(.text) for _assert_handler
+    yc_adc.o(.text) refers to yc_ipc.o(.text) for IpcInit
+    yc_adc.o(.text) refers to memseta.o(.text) for __aeabi_memclr4
+    yc_adc.o(.text) refers to yc_otp.o(.text) for read_otp
+    yc_adc.o(.text) refers to idiv.o(.text) for __aeabi_idivmod
+    yc_adc.o(.text) refers to yc_adc.o(.constdata) for .constdata
+    yc_adc.o(.text) refers to yc_ipc.o(.data) for ipc_inited
+    yc_sysctrl.o(.text) refers to system.o(.text) for _assert_handler
+    yc_sysctrl.o(.text) refers to uidiv.o(.text) for __aeabi_uidivmod
+    yc_sysctrl.o(.text) refers to startup.o(.text) for delay
+    yc_sysctrl.o(.text) refers to yc_sysctrl.o(.constdata) for .constdata
+    yc_timer.o(.text) refers to system.o(.text) for _assert_handler
+    yc_timer.o(.text) refers to startup.o(.text) for delay
+    yc_timer.o(.text) refers to yc_timer.o(.constdata) for .constdata
+    yc_spi.o(.text) refers to system.o(.text) for _assert_handler
+    yc_spi.o(.text) refers to yc_spi.o(.constdata) for .constdata
+    yc_ipc.o(.text) refers to yc_timer.o(.text) for delay_ms
+    yc_ipc.o(.text) refers to uread4.o(.text) for __aeabi_uread4
+    yc_ipc.o(.text) refers to startup.o(.text) for delay
+    yc_ipc.o(.text) refers to system.o(.text) for MyPrintf
+    yc_ipc.o(.text) refers to yc_ipc.o(.data) for .data
+    yc_ipc.o(.text) refers to bt_code.o(.constdata) for bt_code
+    yc_power.o(.text) refers to yc_lpm.o(.text) for lpm_bt_read
     hal_log.o(.text) refers to memseta.o(.text) for __aeabi_memclr4
     hal_log.o(.text) refers to printfa.o(i.__0vsnprintf) for vsnprintf
     hal_log.o(.text) refers to yc_uart.o(.text) for UART_SendBuf
     hal_log.o(.text) refers to yc_gpio.o(.text) for GPIO_Config
+    hal_print.o(.text) refers to middle_print.o(.text) for middle_print_latch_to_heat_handle
+    hal_print.o(.text) refers to yc_timer.o(.text) for TIM_Cmd
+    hal_print.o(.text) refers to yc_gpio.o(.text) for GPIO_ResetBits
+    hal_print.o(.text) refers to misc.o(.text) for NVIC_EnableIRQ
+    hal_print.o(.text) refers to yc_spi.o(.text) for SPI_Init
+    hal_systick.o(.text) refers to yc_systick.o(.text) for SysTick_Config
+    hal_systick.o(.text) refers to hal_systick.o(.data) for .data
+    hal_adc.o(.text) refers to yc_gpio.o(.text) for GPIO_Config
+    hal_adc.o(.text) refers to yc_adc.o(.text) for ADC_Init
+    hal_time.o(.text) refers to yc_timer.o(.text) for TIM_Init
+    hal_time.o(.text) refers to misc.o(.text) for NVIC_EnableIRQ
+    hal_time.o(.text) refers to hal_time.o(.data) for .data
+    hal_button.o(.text) refers to yc_power.o(.text) for Power_Keyscan
+    hal_button.o(.text) refers to hal_button.o(.data) for .data
+    hal_led.o(.text) refers to yc_gpio.o(.text) for GPIO_Init
+    hal_init.o(.text) refers to hal_systick.o(.text) for hal_systick_init
+    hal_init.o(.text) refers to hal_log.o(.text) for hal_log_init
+    hal_init.o(.text) refers to hal_led.o(.text) for hal_led_init
+    hal_init.o(.text) refers to hal_print.o(.text) for hal_print_init
+    hal_init.o(.text) refers to hal_adc.o(.text) for hal_adc_init
+    hal_init.o(.text) refers to hal_button.o(.text) for hal_button_init
+    hal_init.o(.text) refers to hal_time.o(.text) for hal_time_init
+    yc_lpm.o(.text) refers to startup.o(.text) for delay
+    yc_lpm.o(.text) refers to yc_otp.o(.text) for read_otp
+    yc_lpm.o(.text) refers to misc.o(.text) for NVIC_DisableIRQ
+    yc_lpm.o(.text) refers to yc_ipc.o(.text) for IPC_TxData
+    yc_lpm.o(.text) refers to yc_sysctrl.o(.text) for SYSCTRL_HCLKConfig
+    yc_lpm.o(.text) refers to yc_gpio.o(.text) for GPIO_Config
+    yc_lpm.o(.text) refers to yc_ipc.o(.data) for ipc_inited
+    yc_lpm.o(.text) refers to yc_lpm.o(.data) for .data
     middle_print_list.o(.text) refers to uidiv.o(.text) for __aeabi_uidivmod
     middle_print_list.o(.text) refers to middle_mmu.o(.text) for middle_mmu_alloc
     middle_print_list.o(.text) refers to idiv.o(.text) for __aeabi_idivmod
@@ -40,18 +98,24 @@ Section Cross References
     middle_print_list.o(.text) refers to middle_print_list.o(.constdata) for .constdata
     middle_print_list.o(.text) refers to middle_print_list.o(.bss) for .bss
     middle_print.o(.text) refers to hal_print.o(.text) for hal_print_motor_stop
+    middle_print.o(.text) refers to yc_gpio.o(.text) for GPIO_ResetBits
     middle_print.o(.text) refers to middle_print_list.o(.text) for middle_print_list_destory
+    middle_print.o(.text) refers to hal_log.o(.text) for hal_log_printf
+    middle_print.o(.text) refers to memseta.o(.text) for __aeabi_memclr4
+    middle_print.o(.text) refers to memcpya.o(.text) for __aeabi_memcpy4
     middle_print.o(.text) refers to middle_print.o(.bss) for .bss
+    middle_print.o(.text) refers to middle_print.o(.constdata) for .constdata
     middle_print.o(.text) refers to middle_print.o(.data) for .data
     middle_mmu.o(.text) refers to memseta.o(.text) for __aeabi_memclr
     middle_mmu.o(.text) refers to printfa.o(i.__0printf) for __2printf
     middle_mmu.o(.text) refers to middle_mmu.o(.bss) for .bss
-    main.o(.text) refers to misc.o(.text) for NVIC_EnableIRQ
-    main.o(.text) refers to yc_gpio.o(.text) for GPIO_Config
-    main.o(.text) refers to yc_uart.o(.text) for UART_Init
-    main.o(.text) refers to system.o(.text) for MyPrintf
-    main.o(.text) refers to yc_exti.o(.text) for EXTI_LineConfig
-    main.o(.text) refers to main.o(.bss) for .bss
+    main.o(.text) refers to hal_button.o(.text) for hal_button_progress
+    main.o(.text) refers to hal_init.o(.text) for hal_init
+    main.o(.text) refers to hal_time.o(.text) for hal_time_period_execute_register
+    main.o(.text) refers to middle_mmu.o(.text) for middle_mmu_init
+    main.o(.text) refers to middle_print.o(.text) for middle_print_init
+    main.o(.text) refers to hal_log.o(.text) for hal_log_printf
+    main.o(.text) refers to middle_print_list.o(.text) for middle_print_list_put
     entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry10a.o(.ARM.Collect$$$$0000000D) for __rt_final_cpp
     entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry11a.o(.ARM.Collect$$$$0000000F) for __rt_final_exit
     entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry7b.o(.ARM.Collect$$$$00000008) for _main_clock
@@ -322,26 +386,17 @@ Removing Unused input sections from the image.
 
     Removing startup.o(STACK), (65536 bytes).
     Removing startup.o(HEAP), (0 bytes).
-    Removing hal_log.o(.text), (138 bytes).
-    Removing hal_print.o(.text), (24 bytes).
-    Removing middle_print_list.o(.text), (672 bytes).
-    Removing middle_print_list.o(.bss), (484 bytes).
-    Removing middle_print_list.o(.constdata), (256 bytes).
-    Removing middle_print.o(.text), (272 bytes).
-    Removing middle_print.o(.bss), (36 bytes).
-    Removing middle_print.o(.constdata), (38 bytes).
-    Removing middle_print.o(.data), (4 bytes).
-    Removing middle_mmu.o(.text), (184 bytes).
-    Removing middle_mmu.o(.bss), (6528 bytes).
-    Removing dadd.o(.text), (356 bytes).
-    Removing dmul.o(.text), (208 bytes).
-    Removing ddiv.o(.text), (240 bytes).
-    Removing dfixul.o(.text), (64 bytes).
-    Removing cdrcmple.o(.text), (40 bytes).
-    Removing depilogue.o(.text), (190 bytes).
-    Removing depilogue.o(i.__ARM_clz), (46 bytes).
+    Removing yc_ipc.o(.bss), (256 bytes).
 
-20 unused section(s) (total 75316 bytes) removed from the image.
+3 unused section(s) (total 65792 bytes) removed from the image.
+
+==============================================================================
+
+Adding Veneers to the image
+
+    Adding TT veneer (12 bytes, Long) for call to 'delay' from yc_sysctrl.o(.text).
+
+1 Veneer(s) (total 12 bytes) added to the image.
 
 ==============================================================================
 
@@ -353,54 +408,71 @@ Image Symbol Table
 
     RESET                                    0x00000000   Section      192  startup.o(RESET)
     ../clib/microlib/division.c              0x00000000   Number         0  uldiv.o ABSOLUTE
-    ../clib/microlib/division.c              0x00000000   Number         0  idiv.o ABSOLUTE
     ../clib/microlib/division.c              0x00000000   Number         0  uidiv.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
+    ../clib/microlib/division.c              0x00000000   Number         0  idiv.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
-    ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llsshr.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfb.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf3.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf6.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf7.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfa.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf4.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf2.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf5.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf1.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf0.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf5.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf4.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfa.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfb.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf8.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf7.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf6.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf2.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf3.o ABSOLUTE
     ../clib/microlib/stdio/streams.c         0x00000000   Number         0  stdout.o ABSOLUTE
-    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpya.o ABSOLUTE
     ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpyb.o ABSOLUTE
+    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpya.o ABSOLUTE
     ../clib/microlib/string/memset.c         0x00000000   Number         0  memseta.o ABSOLUTE
     ../clib/microlib/stubs.s                 0x00000000   Number         0  iusefp.o ABSOLUTE
+    ../clib/microlib/unhosted.c              0x00000000   Number         0  uread4.o ABSOLUTE
     ../fplib/microlib/fpadd.c                0x00000000   Number         0  dadd.o ABSOLUTE
     ../fplib/microlib/fpdiv.c                0x00000000   Number         0  ddiv.o ABSOLUTE
     ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  depilogue.o ABSOLUTE
     ../fplib/microlib/fpfix.c                0x00000000   Number         0  dfixul.o ABSOLUTE
     ../fplib/microlib/fpmul.c                0x00000000   Number         0  dmul.o ABSOLUTE
+    ..\..\hardware\Librarier\core\bt_code.c  0x00000000   Number         0  bt_code.o ABSOLUTE
     ..\..\hardware\Librarier\core\misc.c     0x00000000   Number         0  misc.o ABSOLUTE
     ..\..\hardware\Librarier\core\system.c   0x00000000   Number         0  system.o ABSOLUTE
+    ..\..\hardware\Librarier\sdk\yc_adc.c    0x00000000   Number         0  yc_adc.o ABSOLUTE
     ..\..\hardware\Librarier\sdk\yc_exti.c   0x00000000   Number         0  yc_exti.o ABSOLUTE
     ..\..\hardware\Librarier\sdk\yc_gpio.c   0x00000000   Number         0  yc_gpio.o ABSOLUTE
+    ..\..\hardware\Librarier\sdk\yc_ipc.c    0x00000000   Number         0  yc_ipc.o ABSOLUTE
+    ..\..\hardware\Librarier\sdk\yc_lpm.c    0x00000000   Number         0  yc_lpm.o ABSOLUTE
+    ..\..\hardware\Librarier\sdk\yc_otp.c    0x00000000   Number         0  yc_otp.o ABSOLUTE
+    ..\..\hardware\Librarier\sdk\yc_power.c  0x00000000   Number         0  yc_power.o ABSOLUTE
+    ..\..\hardware\Librarier\sdk\yc_spi.c    0x00000000   Number         0  yc_spi.o ABSOLUTE
+    ..\..\hardware\Librarier\sdk\yc_sysctrl.c 0x00000000   Number         0  yc_sysctrl.o ABSOLUTE
+    ..\..\hardware\Librarier\sdk\yc_systick.c 0x00000000   Number         0  yc_systick.o ABSOLUTE
+    ..\..\hardware\Librarier\sdk\yc_timer.c  0x00000000   Number         0  yc_timer.o ABSOLUTE
     ..\..\hardware\Librarier\sdk\yc_uart.c   0x00000000   Number         0  yc_uart.o ABSOLUTE
     ..\..\hardware\Librarier\startup\flash_start.s 0x00000000   Number         0  flash_start.o ABSOLUTE
     ..\..\hardware\Librarier\startup\startup.s 0x00000000   Number         0  startup.o ABSOLUTE
+    ..\..\hardware\hal_adc.c                 0x00000000   Number         0  hal_adc.o ABSOLUTE
+    ..\..\hardware\hal_button.c              0x00000000   Number         0  hal_button.o ABSOLUTE
+    ..\..\hardware\hal_init.c                0x00000000   Number         0  hal_init.o ABSOLUTE
+    ..\..\hardware\hal_led.c                 0x00000000   Number         0  hal_led.o ABSOLUTE
     ..\..\hardware\hal_log.c                 0x00000000   Number         0  hal_log.o ABSOLUTE
     ..\..\hardware\hal_print.c               0x00000000   Number         0  hal_print.o ABSOLUTE
+    ..\..\hardware\hal_systick.c             0x00000000   Number         0  hal_systick.o ABSOLUTE
+    ..\..\hardware\hal_time.c                0x00000000   Number         0  hal_time.o ABSOLUTE
     ..\app\main.c                            0x00000000   Number         0  main.o ABSOLUTE
     ..\middle\middle_mmu.c                   0x00000000   Number         0  middle_mmu.o ABSOLUTE
     ..\middle\middle_print.c                 0x00000000   Number         0  middle_print.o ABSOLUTE
@@ -415,8 +487,29 @@ Image Symbol Table
     ExtiTrig                                 0x00020006   Data           6  yc_exti.o(.data)
     ExtiRisingFallingTrig                    0x0002000c   Data           6  yc_exti.o(.data)
     ExtiStatus                               0x00020012   Data           6  yc_exti.o(.data)
-    .bss                                     0x00020018   Section     2048  yc_uart.o(.bss)
-    .bss                                     0x00020818   Section       10  main.o(.bss)
+    .data                                    0x00020018   Section        4  yc_systick.o(.data)
+    .data                                    0x0002001c   Section       12  yc_ipc.o(.data)
+    .data                                    0x00020028   Section        4  hal_systick.o(.data)
+    hal_systick_time_count                   0x00020028   Data           4  hal_systick.o(.data)
+    .data                                    0x0002002c   Section        4  hal_time.o(.data)
+    hal_time_period_exec                     0x0002002c   Data           4  hal_time.o(.data)
+    .data                                    0x00020030   Section        8  hal_button.o(.data)
+    hal_button_clicked_timeout               0x00020030   Data           4  hal_button.o(.data)
+    hal_button_clicked_value                 0x00020034   Data           4  hal_button.o(.data)
+    .data                                    0x00020038   Section        4  yc_lpm.o(.data)
+    value_rtc_1s                             0x00020038   Data           4  yc_lpm.o(.data)
+    .data                                    0x0002003c   Section        4  middle_print.o(.data)
+    middle_print_list                        0x0002003c   Data           4  middle_print.o(.data)
+    .data                                    0x00020040   Section        4  stdout.o(.data)
+    .bss                                     0x00020044   Section     2048  yc_uart.o(.bss)
+    .bss                                     0x00020844   Section      484  middle_print_list.o(.bss)
+    mid_printlistm                           0x00020844   Data         484  middle_print_list.o(.bss)
+    .bss                                     0x00020a28   Section      108  middle_print.o(.bss)
+    middle_print_line_data                   0x00020a28   Data          72  middle_print.o(.bss)
+    middle_print_mgr                         0x00020a70   Data          36  middle_print.o(.bss)
+    .bss                                     0x00020a94   Section     6528  middle_mmu.o(.bss)
+    middle_mmu_base                          0x00020a94   Data        6144  middle_mmu.o(.bss)
+    middle_mmu_mapbase                       0x00022294   Data         384  middle_mmu.o(.bss)
     .flash_start                             0x01000200   Section      312  flash_start.o(.flash_start)
     isr                                      0x0100029d   Thumb Code     6  flash_start.o(.flash_start)
     isr_ret                                  0x010002a3   Thumb Code     8  flash_start.o(.flash_start)
@@ -435,46 +528,130 @@ Image Symbol Table
     .text                                    0x01000728   Section        0  yc_gpio.o(.text)
     .text                                    0x01000cf0   Section        0  yc_exti.o(.text)
     .text                                    0x01000f3c   Section        0  yc_uart.o(.text)
-    .text                                    0x01001420   Section        0  main.o(.text)
-    .text                                    0x0100162c   Section        0  uidiv.o(.text)
-    .text                                    0x01001658   Section       36  init.o(.text)
-    i.__ARM_common_switch8                   0x0100167c   Section        0  yc_gpio.o(i.__ARM_common_switch8)
-    i.__scatterload_copy                     0x01001696   Section       14  handlers.o(i.__scatterload_copy)
-    i.__scatterload_null                     0x010016a4   Section        2  handlers.o(i.__scatterload_null)
-    i.__scatterload_zeroinit                 0x010016a6   Section       14  handlers.o(i.__scatterload_zeroinit)
-    .constdata                               0x010016b4   Section        8  system.o(.constdata)
-    g_pcHex1                                 0x010016b4   Data           4  system.o(.constdata)
-    g_pcHex2                                 0x010016b8   Data           4  system.o(.constdata)
-    .constdata                               0x010016bc   Section      174  yc_gpio.o(.constdata)
-    __FUNCTION__                             0x010016bc   Data          12  yc_gpio.o(.constdata)
-    __FUNCTION__                             0x010016c8   Data          10  yc_gpio.o(.constdata)
-    __FUNCTION__                             0x010016d2   Data          15  yc_gpio.o(.constdata)
-    __FUNCTION__                             0x010016e1   Data          19  yc_gpio.o(.constdata)
-    __FUNCTION__                             0x010016f4   Data          22  yc_gpio.o(.constdata)
-    __FUNCTION__                             0x0100170a   Data          20  yc_gpio.o(.constdata)
-    __FUNCTION__                             0x0100171e   Data          23  yc_gpio.o(.constdata)
-    __FUNCTION__                             0x01001735   Data          15  yc_gpio.o(.constdata)
-    __FUNCTION__                             0x01001744   Data          13  yc_gpio.o(.constdata)
-    __FUNCTION__                             0x01001751   Data          11  yc_gpio.o(.constdata)
-    __FUNCTION__                             0x0100175c   Data          14  yc_gpio.o(.constdata)
-    .constdata                               0x0100176a   Section       39  yc_exti.o(.constdata)
-    __FUNCTION__                             0x0100176a   Data          23  yc_exti.o(.constdata)
-    __FUNCTION__                             0x01001781   Data          16  yc_exti.o(.constdata)
-    .constdata                               0x01001791   Section      208  yc_uart.o(.constdata)
-    __FUNCTION__                             0x01001791   Data          21  yc_uart.o(.constdata)
-    __FUNCTION__                             0x010017a6   Data          12  yc_uart.o(.constdata)
-    __FUNCTION__                             0x010017b2   Data          16  yc_uart.o(.constdata)
-    __FUNCTION__                             0x010017c2   Data          10  yc_uart.o(.constdata)
-    __FUNCTION__                             0x010017cc   Data          18  yc_uart.o(.constdata)
-    __FUNCTION__                             0x010017de   Data          22  yc_uart.o(.constdata)
-    __FUNCTION__                             0x010017f4   Data          16  yc_uart.o(.constdata)
-    __FUNCTION__                             0x01001804   Data          14  yc_uart.o(.constdata)
-    __FUNCTION__                             0x01001812   Data          17  yc_uart.o(.constdata)
-    __FUNCTION__                             0x01001823   Data          13  yc_uart.o(.constdata)
-    __FUNCTION__                             0x01001830   Data          13  yc_uart.o(.constdata)
-    __FUNCTION__                             0x0100183d   Data          16  yc_uart.o(.constdata)
-    __FUNCTION__                             0x0100184d   Data          20  yc_uart.o(.constdata)
-    .conststring                             0x01001864   Section       37  system.o(.conststring)
+    .text                                    0x01001420   Section        0  yc_systick.o(.text)
+    sysTick_delay_ms                         0x01001421   Thumb Code    86  yc_systick.o(.text)
+    .text                                    0x0100160c   Section        0  yc_adc.o(.text)
+    .text                                    0x010018a0   Section        0  yc_sysctrl.o(.text)
+    __tagsym$$noinline                       0x010018e3   Number         0  yc_sysctrl.o(.text)
+    .text                                    0x010019e0   Section        0  yc_timer.o(.text)
+    .text                                    0x01001c7c   Section        0  yc_spi.o(.text)
+    .text                                    0x01001dc0   Section        0  yc_otp.o(.text)
+    .text                                    0x01001e28   Section        0  yc_ipc.o(.text)
+    _dma_start                               0x010020c1   Thumb Code    26  yc_ipc.o(.text)
+    __tagsym$$noinline                       0x010020c1   Number         0  yc_ipc.o(.text)
+    __tagsym$$noinline                       0x010020db   Number         0  yc_ipc.o(.text)
+    .text                                    0x010022dc   Section        0  yc_power.o(.text)
+    .text                                    0x01002318   Section        0  hal_log.o(.text)
+    .text                                    0x010023a4   Section        0  hal_print.o(.text)
+    hal_print_motor_spwm_init                0x01002451   Thumb Code   202  hal_print.o(.text)
+    hal_print_tp_init                        0x01002567   Thumb Code   148  hal_print.o(.text)
+    .text                                    0x01002604   Section        0  hal_systick.o(.text)
+    .text                                    0x0100263c   Section        0  hal_adc.o(.text)
+    .text                                    0x01002660   Section        0  hal_time.o(.text)
+    .text                                    0x010026b0   Section        0  hal_button.o(.text)
+    .text                                    0x010026f4   Section        0  hal_led.o(.text)
+    .text                                    0x01002714   Section        0  hal_init.o(.text)
+    .text                                    0x01002750   Section        0  yc_lpm.o(.text)
+    .text                                    0x010029a8   Section        0  middle_print_list.o(.text)
+    middle_print_line_data_parse             0x010029a9   Thumb Code   180  middle_print_list.o(.text)
+    middle_print_line_data_slice             0x01002b71   Thumb Code   134  middle_print_list.o(.text)
+    .text                                    0x01002c48   Section        0  middle_print.o(.text)
+    middle_print_motor_linefeed_completed    0x01002e3f   Thumb Code    22  middle_print.o(.text)
+    middle_print_line_data_latch             0x01002e55   Thumb Code    40  middle_print.o(.text)
+    middle_print_start                       0x01002e7d   Thumb Code    68  middle_print.o(.text)
+    .text                                    0x01002f18   Section        0  middle_mmu.o(.text)
+    .text                                    0x01002fd0   Section        0  main.o(.text)
+    period_execute                           0x01002fd1   Thumb Code    10  main.o(.text)
+    .text                                    0x01003078   Section        0  uidiv.o(.text)
+    .text                                    0x010030a4   Section        0  idiv.o(.text)
+    .text                                    0x010030cc   Section        0  memcpya.o(.text)
+    .text                                    0x010030f0   Section        0  memseta.o(.text)
+    .text                                    0x01003114   Section        0  uread4.o(.text)
+    .text                                    0x01003128   Section        0  uldiv.o(.text)
+    .text                                    0x01003188   Section        0  dadd.o(.text)
+    .text                                    0x01003188   Section        0  iusefp.o(.text)
+    .text                                    0x010032ec   Section        0  dmul.o(.text)
+    .text                                    0x010033bc   Section        0  ddiv.o(.text)
+    .text                                    0x010034ac   Section        0  dfixul.o(.text)
+    .text                                    0x010034ec   Section       40  cdrcmple.o(.text)
+    .text                                    0x01003514   Section       36  init.o(.text)
+    .text                                    0x01003538   Section        0  llshl.o(.text)
+    .text                                    0x01003558   Section        0  llushr.o(.text)
+    .text                                    0x0100357a   Section        0  llsshr.o(.text)
+    .text                                    0x010035a0   Section        0  depilogue.o(.text)
+    i.__0printf                              0x0100366c   Section        0  printfa.o(i.__0printf)
+    i.__0vsnprintf                           0x0100368c   Section        0  printfa.o(i.__0vsnprintf)
+    i.__ARM_clz                              0x010036b8   Section        0  depilogue.o(i.__ARM_clz)
+    i.__ARM_common_switch8                   0x010036e6   Section        0  yc_gpio.o(i.__ARM_common_switch8)
+    i.__scatterload_copy                     0x01003700   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x0100370e   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x01003710   Section       14  handlers.o(i.__scatterload_zeroinit)
+    i._fp_digits                             0x01003720   Section        0  printfa.o(i._fp_digits)
+    _fp_digits                               0x01003721   Thumb Code   344  printfa.o(i._fp_digits)
+    i._printf_core                           0x01003894   Section        0  printfa.o(i._printf_core)
+    _printf_core                             0x01003895   Thumb Code  1754  printfa.o(i._printf_core)
+    i._printf_post_padding                   0x01003f80   Section        0  printfa.o(i._printf_post_padding)
+    _printf_post_padding                     0x01003f81   Thumb Code    32  printfa.o(i._printf_post_padding)
+    i._printf_pre_padding                    0x01003fa0   Section        0  printfa.o(i._printf_pre_padding)
+    _printf_pre_padding                      0x01003fa1   Thumb Code    44  printfa.o(i._printf_pre_padding)
+    i._snputc                                0x01003fcc   Section        0  printfa.o(i._snputc)
+    _snputc                                  0x01003fcd   Thumb Code    22  printfa.o(i._snputc)
+    .constdata                               0x01003fe4   Section        8  system.o(.constdata)
+    g_pcHex1                                 0x01003fe4   Data           4  system.o(.constdata)
+    g_pcHex2                                 0x01003fe8   Data           4  system.o(.constdata)
+    .constdata                               0x01003fec   Section      174  yc_gpio.o(.constdata)
+    __FUNCTION__                             0x01003fec   Data          12  yc_gpio.o(.constdata)
+    __FUNCTION__                             0x01003ff8   Data          10  yc_gpio.o(.constdata)
+    __FUNCTION__                             0x01004002   Data          15  yc_gpio.o(.constdata)
+    __FUNCTION__                             0x01004011   Data          19  yc_gpio.o(.constdata)
+    __FUNCTION__                             0x01004024   Data          22  yc_gpio.o(.constdata)
+    __FUNCTION__                             0x0100403a   Data          20  yc_gpio.o(.constdata)
+    __FUNCTION__                             0x0100404e   Data          23  yc_gpio.o(.constdata)
+    __FUNCTION__                             0x01004065   Data          15  yc_gpio.o(.constdata)
+    __FUNCTION__                             0x01004074   Data          13  yc_gpio.o(.constdata)
+    __FUNCTION__                             0x01004081   Data          11  yc_gpio.o(.constdata)
+    __FUNCTION__                             0x0100408c   Data          14  yc_gpio.o(.constdata)
+    .constdata                               0x0100409a   Section       39  yc_exti.o(.constdata)
+    __FUNCTION__                             0x0100409a   Data          23  yc_exti.o(.constdata)
+    __FUNCTION__                             0x010040b1   Data          16  yc_exti.o(.constdata)
+    .constdata                               0x010040c1   Section      208  yc_uart.o(.constdata)
+    __FUNCTION__                             0x010040c1   Data          21  yc_uart.o(.constdata)
+    __FUNCTION__                             0x010040d6   Data          12  yc_uart.o(.constdata)
+    __FUNCTION__                             0x010040e2   Data          16  yc_uart.o(.constdata)
+    __FUNCTION__                             0x010040f2   Data          10  yc_uart.o(.constdata)
+    __FUNCTION__                             0x010040fc   Data          18  yc_uart.o(.constdata)
+    __FUNCTION__                             0x0100410e   Data          22  yc_uart.o(.constdata)
+    __FUNCTION__                             0x01004124   Data          16  yc_uart.o(.constdata)
+    __FUNCTION__                             0x01004134   Data          14  yc_uart.o(.constdata)
+    __FUNCTION__                             0x01004142   Data          17  yc_uart.o(.constdata)
+    __FUNCTION__                             0x01004153   Data          13  yc_uart.o(.constdata)
+    __FUNCTION__                             0x01004160   Data          13  yc_uart.o(.constdata)
+    __FUNCTION__                             0x0100416d   Data          16  yc_uart.o(.constdata)
+    __FUNCTION__                             0x0100417d   Data          20  yc_uart.o(.constdata)
+    .constdata                               0x01004191   Section       49  yc_systick.o(.constdata)
+    __FUNCTION__                             0x01004191   Data          17  yc_systick.o(.constdata)
+    __FUNCTION__                             0x010041a2   Data          17  yc_systick.o(.constdata)
+    __FUNCTION__                             0x010041b3   Data          15  yc_systick.o(.constdata)
+    .constdata                               0x010041c2   Section        9  yc_adc.o(.constdata)
+    __FUNCTION__                             0x010041c2   Data           9  yc_adc.o(.constdata)
+    .constdata                               0x010041cb   Section       64  yc_sysctrl.o(.constdata)
+    __FUNCTION__                             0x010041cb   Data          26  yc_sysctrl.o(.constdata)
+    __FUNCTION__                             0x010041e5   Data          19  yc_sysctrl.o(.constdata)
+    __FUNCTION__                             0x010041f8   Data          19  yc_sysctrl.o(.constdata)
+    .constdata                               0x0100420b   Section       95  yc_timer.o(.constdata)
+    __FUNCTION__                             0x0100420b   Data           8  yc_timer.o(.constdata)
+    __FUNCTION__                             0x01004213   Data           9  yc_timer.o(.constdata)
+    __FUNCTION__                             0x0100421c   Data          15  yc_timer.o(.constdata)
+    __FUNCTION__                             0x0100422b   Data          14  yc_timer.o(.constdata)
+    __FUNCTION__                             0x01004239   Data          12  yc_timer.o(.constdata)
+    __FUNCTION__                             0x01004245   Data          17  yc_timer.o(.constdata)
+    __FUNCTION__                             0x01004256   Data          20  yc_timer.o(.constdata)
+    .constdata                               0x0100426a   Section        9  yc_spi.o(.constdata)
+    __FUNCTION__                             0x0100426a   Data           9  yc_spi.o(.constdata)
+    .constdata                               0x01004273   Section     2600  bt_code.o(.constdata)
+    .constdata                               0x01004c9b   Section      256  middle_print_list.o(.constdata)
+    .constdata                               0x01004d9c   Section       38  middle_print.o(.constdata)
+    .conststring                             0x01004dc4   Section       37  system.o(.conststring)
 
     Global Symbols
 
@@ -493,9 +670,13 @@ Image Symbol Table
     reset_handler                            0x000000c1   Thumb Code     6  startup.o(.text)
     delay                                    0x000000c7   Thumb Code     8  startup.o(.text)
     nmi_handler                              0x000000cf   Thumb Code     2  startup.o(.text)
-    uart0_DMA_buf                            0x00020018   Data        1024  yc_uart.o(.bss)
-    uart1_DMA_buf                            0x00020418   Data        1024  yc_uart.o(.bss)
-    buf                                      0x00020818   Data          10  main.o(.bss)
+    SystickCount                             0x00020018   Data           4  yc_systick.o(.data)
+    ipc_inited                               0x0002001c   Data           1  yc_ipc.o(.data)
+    IpcRx                                    0x00020020   Data           4  yc_ipc.o(.data)
+    IpcTx                                    0x00020024   Data           4  yc_ipc.o(.data)
+    __stdout                                 0x00020040   Data           4  stdout.o(.data)
+    uart0_DMA_buf                            0x00020044   Data        1024  yc_uart.o(.bss)
+    uart1_DMA_buf                            0x00020444   Data        1024  yc_uart.o(.bss)
     __initial_sp                             0x00030000   Number         0  startup.o ABSOLUTE
     Reset_Handler                            0x01000201   Thumb Code     4  flash_start.o(.flash_start)
     hard_fault_handler                       0x01000205   Thumb Code     6  flash_start.o(.flash_start)
@@ -538,9 +719,9 @@ Image Symbol Table
     HARD_FAULT_IRQHandler                    0x010002af   Thumb Code     2  flash_start.o(.flash_start)
     SVC_IRQHandler                           0x010002b1   Thumb Code     2  flash_start.o(.flash_start)
     PENDSV_IRQHandler                        0x010002b3   Thumb Code     2  flash_start.o(.flash_start)
-    SYSTICK_IRQHandler                       0x010002b5   Thumb Code     2  flash_start.o(.flash_start)
     EXTI0_IRQHandler                         0x010002b7   Thumb Code     2  flash_start.o(.flash_start)
     EXTI1_IRQHandler                         0x010002b9   Thumb Code     2  flash_start.o(.flash_start)
+    EXTI2_IRQHandler                         0x010002bb   Thumb Code     2  flash_start.o(.flash_start)
     EXTI3_IRQHandler                         0x010002bd   Thumb Code     2  flash_start.o(.flash_start)
     EXTI4_IRQHandler                         0x010002bf   Thumb Code     2  flash_start.o(.flash_start)
     EXTI5_IRQHandler                         0x010002c1   Thumb Code     2  flash_start.o(.flash_start)
@@ -560,12 +741,10 @@ Image Symbol Table
     TIMER1_IRQHandler                        0x010002c3   Thumb Code     0  flash_start.o(.flash_start)
     TIMER2_IRQHandler                        0x010002c3   Thumb Code     0  flash_start.o(.flash_start)
     TIMER3_IRQHandler                        0x010002c3   Thumb Code     0  flash_start.o(.flash_start)
-    TIMER4_IRQHandler                        0x010002c3   Thumb Code     0  flash_start.o(.flash_start)
-    TIMER5_IRQHandler                        0x010002c3   Thumb Code     0  flash_start.o(.flash_start)
-    TIMER6_IRQHandler                        0x010002c3   Thumb Code     0  flash_start.o(.flash_start)
     TIMER7_IRQHandler                        0x010002c3   Thumb Code     0  flash_start.o(.flash_start)
     TIMER8_IRQHandler                        0x010002c3   Thumb Code     0  flash_start.o(.flash_start)
     TRNG_IRQHandler                          0x010002c3   Thumb Code     0  flash_start.o(.flash_start)
+    UART0_IRQHandler                         0x010002c3   Thumb Code     0  flash_start.o(.flash_start)
     UART1_IRQHandler                         0x010002c3   Thumb Code     0  flash_start.o(.flash_start)
     USB_IRQHandler                           0x010002c3   Thumb Code     0  flash_start.o(.flash_start)
     WDT_IRQHandler                           0x010002c3   Thumb Code     0  flash_start.o(.flash_start)
@@ -626,22 +805,167 @@ Image Symbol Table
     UART_SetRxITNum                          0x010013a5   Thumb Code    52  yc_uart.o(.text)
     UART_StructInit                          0x010013d9   Thumb Code    20  yc_uart.o(.text)
     UART_ReceiveDataLen                      0x010013ed   Thumb Code    36  yc_uart.o(.text)
-    Get_cmd                                  0x01001421   Thumb Code    58  main.o(.text)
-    NVIC_Configuration                       0x0100145b   Thumb Code    32  main.o(.text)
-    UART_Configuration                       0x0100147b   Thumb Code    68  main.o(.text)
-    main                                     0x010014bf   Thumb Code   114  main.o(.text)
-    UART0_IRQHandler                         0x01001531   Thumb Code    24  main.o(.text)
-    EXTI2_IRQHandler                         0x01001549   Thumb Code    10  main.o(.text)
-    __aeabi_uidiv                            0x0100162d   Thumb Code     0  uidiv.o(.text)
-    __aeabi_uidivmod                         0x0100162d   Thumb Code    44  uidiv.o(.text)
-    __scatterload                            0x01001659   Thumb Code    28  init.o(.text)
-    __scatterload_rt2                        0x01001659   Thumb Code     0  init.o(.text)
-    __ARM_common_switch8                     0x0100167d   Thumb Code    26  yc_gpio.o(i.__ARM_common_switch8)
-    __scatterload_copy                       0x01001697   Thumb Code    14  handlers.o(i.__scatterload_copy)
-    __scatterload_null                       0x010016a5   Thumb Code     2  handlers.o(i.__scatterload_null)
-    __scatterload_zeroinit                   0x010016a7   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    Region$$Table$$Base                      0x0100188c   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x010018ac   Number         0  anon$$obj.o(Region$$Table)
+    SysTick_Delay_Ms                         0x01001477   Thumb Code    42  yc_systick.o(.text)
+    SysTick_Delay_Us                         0x010014a1   Thumb Code    84  yc_systick.o(.text)
+    SysTick_Config                           0x010014f5   Thumb Code    54  yc_systick.o(.text)
+    SysTick_disable                          0x0100152b   Thumb Code    24  yc_systick.o(.text)
+    SysTick_GetTick                          0x01001543   Thumb Code     6  yc_systick.o(.text)
+    SysTick_IsTimeOut                        0x01001549   Thumb Code    64  yc_systick.o(.text)
+    SysTick_GetRelativeTime                  0x01001589   Thumb Code    52  yc_systick.o(.text)
+    ADC_Init                                 0x0100160d   Thumb Code   110  yc_adc.o(.text)
+    ADC_GetResult                            0x0100167b   Thumb Code    44  yc_adc.o(.text)
+    ADC_Filt                                 0x010016a7   Thumb Code   148  yc_adc.o(.text)
+    ADC_GetVoltage                           0x0100173b   Thumb Code   284  yc_adc.o(.text)
+    SYSCTRL_AHBPeriphClockCmd                0x010018a1   Thumb Code    40  yc_sysctrl.o(.text)
+    SYSCTRL_EnterSleep                       0x010018c9   Thumb Code    26  yc_sysctrl.o(.text)
+    HCLKConfig_Div_None                      0x010018e3   Thumb Code    24  yc_sysctrl.o(.text)
+    SYSCTRL_HCLKConfig                       0x010018fb   Thumb Code    62  yc_sysctrl.o(.text)
+    SYSCTRL_GetClocksFreq                    0x01001939   Thumb Code    24  yc_sysctrl.o(.text)
+    SYSCTRL_EnableDpllClk                    0x01001951   Thumb Code    58  yc_sysctrl.o(.text)
+    delay_us                                 0x010019e1   Thumb Code     4  yc_timer.o(.text)
+    delay_ms                                 0x010019e5   Thumb Code     6  yc_timer.o(.text)
+    TIM_Cmd                                  0x010019eb   Thumb Code    72  yc_timer.o(.text)
+    TIM_Init                                 0x01001a33   Thumb Code    74  yc_timer.o(.text)
+    TIM_DeInit                               0x01001a7d   Thumb Code    12  yc_timer.o(.text)
+    TIM_ModeConfig                           0x01001a89   Thumb Code    90  yc_timer.o(.text)
+    TIM_SetPeriod                            0x01001ae3   Thumb Code    34  yc_timer.o(.text)
+    TIM_PWMInit                              0x01001b05   Thumb Code   136  yc_timer.o(.text)
+    TIM_SetPWMPeriod                         0x01001b8d   Thumb Code    38  yc_timer.o(.text)
+    TIM_PWMDifferential                      0x01001bb3   Thumb Code   144  yc_timer.o(.text)
+    SPI_Init                                 0x01001c7d   Thumb Code   168  yc_spi.o(.text)
+    SPI_SendData                             0x01001d25   Thumb Code    34  yc_spi.o(.text)
+    SPI_SendBuff                             0x01001d47   Thumb Code    28  yc_spi.o(.text)
+    SPI_SendAndReceiveData                   0x01001d63   Thumb Code    36  yc_spi.o(.text)
+    deinit_otp                               0x01001dc1   Thumb Code     4  yc_otp.o(.text)
+    init_otp                                 0x01001dc5   Thumb Code     6  yc_otp.o(.text)
+    read_chip_life                           0x01001dcb   Thumb Code    22  yc_otp.o(.text)
+    read_chipid                              0x01001de1   Thumb Code    24  yc_otp.o(.text)
+    read_otp                                 0x01001df9   Thumb Code    34  yc_otp.o(.text)
+    write_otp                                0x01001e1b   Thumb Code     6  yc_otp.o(.text)
+    IPC_have_data                            0x01001e29   Thumb Code    32  yc_ipc.o(.text)
+    IPC_get_available_size                   0x01001e49   Thumb Code    58  yc_ipc.o(.text)
+    IPC_TxData                               0x01001e83   Thumb Code   128  yc_ipc.o(.text)
+    IPC_PutBtData                            0x01001f03   Thumb Code   116  yc_ipc.o(.text)
+    IPC_ReadBtData                           0x01001f77   Thumb Code   216  yc_ipc.o(.text)
+    IPC_GetBtData                            0x0100204f   Thumb Code   114  yc_ipc.o(.text)
+    _dma_wait                                0x010020db   Thumb Code    14  yc_ipc.o(.text)
+    _dmacopy                                 0x010020e9   Thumb Code    20  yc_ipc.o(.text)
+    _download_btcode                         0x010020fd   Thumb Code   132  yc_ipc.o(.text)
+    erase_memory                             0x01002181   Thumb Code    34  yc_ipc.o(.text)
+    IpcInit                                  0x010021a3   Thumb Code    86  yc_ipc.o(.text)
+    PrintHCIPack                             0x010021f9   Thumb Code   166  yc_ipc.o(.text)
+    Power_Keyscan                            0x010022dd   Thumb Code    16  yc_power.o(.text)
+    Power_off                                0x010022ed   Thumb Code    40  yc_power.o(.text)
+    hal_log_printf                           0x01002319   Thumb Code    50  hal_log.o(.text)
+    fputc                                    0x0100234b   Thumb Code    16  hal_log.o(.text)
+    hal_log_init                             0x0100235b   Thumb Code    72  hal_log.o(.text)
+    hal_print_send_data                      0x010023a5   Thumb Code    28  hal_print.o(.text)
+    hal_print_heat_time                      0x010023c1   Thumb Code    36  hal_print.o(.text)
+    hal_print_stop                           0x010023e5   Thumb Code    22  hal_print.o(.text)
+    hal_print_motor_speed_time               0x010023fb   Thumb Code    36  hal_print.o(.text)
+    hal_print_motor_stop                     0x0100241f   Thumb Code    46  hal_print.o(.text)
+    hal_print_temprature                     0x0100244d   Thumb Code     4  hal_print.o(.text)
+    hal_print_init                           0x0100251b   Thumb Code    60  hal_print.o(.text)
+    TIMER4_IRQHandler                        0x01002557   Thumb Code     8  hal_print.o(.text)
+    TIMER5_IRQHandler                        0x0100255f   Thumb Code     8  hal_print.o(.text)
+    hal_systick_time                         0x01002605   Thumb Code     6  hal_systick.o(.text)
+    hal_systick_delay                        0x0100260b   Thumb Code    20  hal_systick.o(.text)
+    hal_systick_init                         0x0100261f   Thumb Code    12  hal_systick.o(.text)
+    SYSTICK_IRQHandler                       0x0100262b   Thumb Code    10  hal_systick.o(.text)
+    hal_adc_init                             0x0100263d   Thumb Code    34  hal_adc.o(.text)
+    hal_time_period_execute_register         0x01002661   Thumb Code     8  hal_time.o(.text)
+    hal_time_init                            0x01002669   Thumb Code    52  hal_time.o(.text)
+    TIMER6_IRQHandler                        0x0100269d   Thumb Code    12  hal_time.o(.text)
+    hal_button_progress                      0x010026b1   Thumb Code    50  hal_button.o(.text)
+    hal_button_value                         0x010026e3   Thumb Code    10  hal_button.o(.text)
+    hal_button_init                          0x010026ed   Thumb Code     4  hal_button.o(.text)
+    hal_led_init                             0x010026f5   Thumb Code    30  hal_led.o(.text)
+    hal_init                                 0x01002715   Thumb Code    40  hal_init.o(.text)
+    lpm_read                                 0x01002751   Thumb Code     4  yc_lpm.o(.text)
+    lpm_write                                0x01002755   Thumb Code     6  yc_lpm.o(.text)
+    lpm_bt_write                             0x0100275b   Thumb Code    68  yc_lpm.o(.text)
+    lpm_bt_read                              0x0100279f   Thumb Code    24  yc_lpm.o(.text)
+    lpm_sleep                                0x010027b7   Thumb Code     6  yc_lpm.o(.text)
+    setlpmval                                0x010027bd   Thumb Code    10  yc_lpm.o(.text)
+    readlpmval                               0x010027c7   Thumb Code    22  yc_lpm.o(.text)
+    GPIO_Unused_Pd                           0x010027dd   Thumb Code    42  yc_lpm.o(.text)
+    BT_Hibernate                             0x01002807   Thumb Code    84  yc_lpm.o(.text)
+    Chip_Speedstep                           0x0100285b   Thumb Code    10  yc_lpm.o(.text)
+    CM0_Sleep                                0x01002865   Thumb Code   258  yc_lpm.o(.text)
+    enable_gpio_32                           0x01002967   Thumb Code    24  yc_lpm.o(.text)
+    middle_print_list_is_free                0x01002a5d   Thumb Code    22  middle_print_list.o(.text)
+    middle_print_list_is_empty               0x01002a73   Thumb Code    18  middle_print_list.o(.text)
+    middle_print_list_put                    0x01002a85   Thumb Code   140  middle_print_list.o(.text)
+    middle_print_list_get                    0x01002b11   Thumb Code    42  middle_print_list.o(.text)
+    middle_print_list_destory                0x01002b3b   Thumb Code    38  middle_print_list.o(.text)
+    middle_print_list_init                   0x01002b61   Thumb Code    16  middle_print_list.o(.text)
+    middle_print_motor_spwm_handle           0x01002c49   Thumb Code   228  middle_print.o(.text)
+    middle_print_latch_to_heat_handle        0x01002d2d   Thumb Code    28  middle_print.o(.text)
+    middle_print_heat_haddle                 0x01002d49   Thumb Code   164  middle_print.o(.text)
+    middle_print_is_busy                     0x01002ded   Thumb Code    12  middle_print.o(.text)
+    middle_print_progress                    0x01002df9   Thumb Code    48  middle_print.o(.text)
+    middle_print_init                        0x01002e29   Thumb Code    22  middle_print.o(.text)
+    middle_mmu_init                          0x01002f19   Thumb Code    24  middle_mmu.o(.text)
+    middle_mmu_alloc                         0x01002f31   Thumb Code    78  middle_mmu.o(.text)
+    middle_mmu_free                          0x01002f7f   Thumb Code    56  middle_mmu.o(.text)
+    main                                     0x01002fdb   Thumb Code    76  main.o(.text)
+    __aeabi_uidiv                            0x01003079   Thumb Code     0  uidiv.o(.text)
+    __aeabi_uidivmod                         0x01003079   Thumb Code    44  uidiv.o(.text)
+    __aeabi_idiv                             0x010030a5   Thumb Code     0  idiv.o(.text)
+    __aeabi_idivmod                          0x010030a5   Thumb Code    40  idiv.o(.text)
+    __aeabi_memcpy                           0x010030cd   Thumb Code    36  memcpya.o(.text)
+    __aeabi_memcpy4                          0x010030cd   Thumb Code     0  memcpya.o(.text)
+    __aeabi_memcpy8                          0x010030cd   Thumb Code     0  memcpya.o(.text)
+    __aeabi_memset                           0x010030f1   Thumb Code    14  memseta.o(.text)
+    __aeabi_memset4                          0x010030f1   Thumb Code     0  memseta.o(.text)
+    __aeabi_memset8                          0x010030f1   Thumb Code     0  memseta.o(.text)
+    __aeabi_memclr                           0x010030ff   Thumb Code     4  memseta.o(.text)
+    __aeabi_memclr4                          0x010030ff   Thumb Code     0  memseta.o(.text)
+    __aeabi_memclr8                          0x010030ff   Thumb Code     0  memseta.o(.text)
+    _memset$wrapper                          0x01003103   Thumb Code    18  memseta.o(.text)
+    __aeabi_uread4                           0x01003115   Thumb Code    20  uread4.o(.text)
+    __rt_uread4                              0x01003115   Thumb Code     0  uread4.o(.text)
+    _uread4                                  0x01003115   Thumb Code     0  uread4.o(.text)
+    __aeabi_uldivmod                         0x01003129   Thumb Code    96  uldiv.o(.text)
+    __I$use$fp                               0x01003189   Thumb Code     0  iusefp.o(.text)
+    __aeabi_dadd                             0x01003189   Thumb Code   328  dadd.o(.text)
+    __aeabi_dsub                             0x010032d1   Thumb Code    12  dadd.o(.text)
+    __aeabi_drsub                            0x010032dd   Thumb Code    12  dadd.o(.text)
+    __aeabi_dmul                             0x010032ed   Thumb Code   202  dmul.o(.text)
+    __aeabi_ddiv                             0x010033bd   Thumb Code   234  ddiv.o(.text)
+    __aeabi_d2ulz                            0x010034ad   Thumb Code    54  dfixul.o(.text)
+    __aeabi_cdrcmple                         0x010034ed   Thumb Code    38  cdrcmple.o(.text)
+    __scatterload                            0x01003515   Thumb Code    28  init.o(.text)
+    __scatterload_rt2                        0x01003515   Thumb Code     0  init.o(.text)
+    __aeabi_llsl                             0x01003539   Thumb Code    32  llshl.o(.text)
+    _ll_shift_l                              0x01003539   Thumb Code     0  llshl.o(.text)
+    __aeabi_llsr                             0x01003559   Thumb Code    34  llushr.o(.text)
+    _ll_ushift_r                             0x01003559   Thumb Code     0  llushr.o(.text)
+    __aeabi_lasr                             0x0100357b   Thumb Code    38  llsshr.o(.text)
+    _ll_sshift_r                             0x0100357b   Thumb Code     0  llsshr.o(.text)
+    _double_round                            0x010035a1   Thumb Code    26  depilogue.o(.text)
+    _double_epilogue                         0x010035bb   Thumb Code   164  depilogue.o(.text)
+    Long Thumb to Thumb Veneer to delay      0x01003661   Thumb Code    12  anon$$obj.o(Veneer$$Code)
+    __0printf                                0x0100366d   Thumb Code    24  printfa.o(i.__0printf)
+    __1printf                                0x0100366d   Thumb Code     0  printfa.o(i.__0printf)
+    __2printf                                0x0100366d   Thumb Code     0  printfa.o(i.__0printf)
+    __c89printf                              0x0100366d   Thumb Code     0  printfa.o(i.__0printf)
+    printf                                   0x0100366d   Thumb Code     0  printfa.o(i.__0printf)
+    __0vsnprintf                             0x0100368d   Thumb Code    40  printfa.o(i.__0vsnprintf)
+    __1vsnprintf                             0x0100368d   Thumb Code     0  printfa.o(i.__0vsnprintf)
+    __2vsnprintf                             0x0100368d   Thumb Code     0  printfa.o(i.__0vsnprintf)
+    __c89vsnprintf                           0x0100368d   Thumb Code     0  printfa.o(i.__0vsnprintf)
+    vsnprintf                                0x0100368d   Thumb Code     0  printfa.o(i.__0vsnprintf)
+    __ARM_clz                                0x010036b9   Thumb Code    46  depilogue.o(i.__ARM_clz)
+    __ARM_common_switch8                     0x010036e7   Thumb Code    26  yc_gpio.o(i.__ARM_common_switch8)
+    __scatterload_copy                       0x01003701   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x0100370f   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x01003711   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    bt_code                                  0x01004273   Data        2600  bt_code.o(.constdata)
+    print_dots_calculate_table               0x01004c9b   Data         256  middle_print_list.o(.constdata)
+    motor_spwm_table                         0x01004d9c   Data          38  middle_print.o(.constdata)
+    Region$$Table$$Base                      0x01004dec   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x01004e0c   Number         0  anon$$obj.o(Region$$Table)
 
 
 
@@ -672,50 +996,119 @@ Memory Map of the image
 
 
 
-  Load Region LR_IROM4 (Base: 0x01000400, Size: 0x000014c4, Max: 0x0000fc00, ABSOLUTE)
+  Load Region LR_IROM4 (Base: 0x01000400, Size: 0x00004a50, Max: 0x0000fc00, ABSOLUTE)
 
-    Execution Region RW_IRAM2 (Exec base: 0x00020000, Load base: 0x010018ac, Size: 0x00000824, Max: 0x00010000, ABSOLUTE)
-
-    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
-
-    0x00020000   0x010018ac   0x00000018   Data   RW          110    .data               yc_exti.o
-    0x00020018        -       0x00000800   Zero   RW          127    .bss                yc_uart.o
-    0x00020818        -       0x0000000a   Zero   RW          267    .bss                main.o
-
-
-    Execution Region ER_IROM4 (Exec base: 0x01000400, Load base: 0x01000400, Size: 0x000014ac, Max: 0xffffffff, ABSOLUTE)
+    Execution Region RW_IRAM2 (Exec base: 0x00020000, Load base: 0x01004e0c, Size: 0x00002414, Max: 0x00010000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x01000400   0x01000400   0x00000000   Code   RO          288  * .ARM.Collect$$$$00000000  mc_p.l(entry.o)
-    0x01000400   0x01000400   0x00000004   Code   RO          561    .ARM.Collect$$$$00000001  mc_p.l(entry2.o)
-    0x01000404   0x01000404   0x00000004   Code   RO          564    .ARM.Collect$$$$00000004  mc_p.l(entry5.o)
-    0x01000408   0x01000408   0x00000000   Code   RO          566    .ARM.Collect$$$$00000008  mc_p.l(entry7b.o)
-    0x01000408   0x01000408   0x00000000   Code   RO          568    .ARM.Collect$$$$0000000A  mc_p.l(entry8b.o)
-    0x01000408   0x01000408   0x00000008   Code   RO          569    .ARM.Collect$$$$0000000B  mc_p.l(entry9a.o)
-    0x01000410   0x01000410   0x00000000   Code   RO          571    .ARM.Collect$$$$0000000D  mc_p.l(entry10a.o)
-    0x01000410   0x01000410   0x00000000   Code   RO          573    .ARM.Collect$$$$0000000F  mc_p.l(entry11a.o)
-    0x01000410   0x01000410   0x00000004   Code   RO          562    .ARM.Collect$$$$00002712  mc_p.l(entry2.o)
+    0x00020000   0x01004e0c   0x00000018   Data   RW          110    .data               yc_exti.o
+    0x00020018   0x01004e24   0x00000004   Data   RW          144    .data               yc_systick.o
+    0x0002001c   0x01004e28   0x0000000c   Data   RW          249    .data               yc_ipc.o
+    0x00020028   0x01004e34   0x00000004   Data   RW          367    .data               hal_systick.o
+    0x0002002c   0x01004e38   0x00000004   Data   RW          396    .data               hal_time.o
+    0x00020030   0x01004e3c   0x00000008   Data   RW          413    .data               hal_button.o
+    0x00020038   0x01004e44   0x00000004   Data   RW          460    .data               yc_lpm.o
+    0x0002003c   0x01004e48   0x00000004   Data   RW          504    .data               middle_print.o
+    0x00020040   0x01004e4c   0x00000004   Data   RW          837    .data               mc_p.l(stdout.o)
+    0x00020044        -       0x00000800   Zero   RW          127    .bss                yc_uart.o
+    0x00020844        -       0x000001e4   Zero   RW          475    .bss                middle_print_list.o
+    0x00020a28        -       0x0000006c   Zero   RW          502    .bss                middle_print.o
+    0x00020a94        -       0x00001980   Zero   RW          519    .bss                middle_mmu.o
+
+
+    Execution Region ER_IROM4 (Exec base: 0x01000400, Load base: 0x01000400, Size: 0x00004a0c, Max: 0xffffffff, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x01000400   0x01000400   0x00000000   Code   RO          548  * .ARM.Collect$$$$00000000  mc_p.l(entry.o)
+    0x01000400   0x01000400   0x00000004   Code   RO          823    .ARM.Collect$$$$00000001  mc_p.l(entry2.o)
+    0x01000404   0x01000404   0x00000004   Code   RO          826    .ARM.Collect$$$$00000004  mc_p.l(entry5.o)
+    0x01000408   0x01000408   0x00000000   Code   RO          828    .ARM.Collect$$$$00000008  mc_p.l(entry7b.o)
+    0x01000408   0x01000408   0x00000000   Code   RO          830    .ARM.Collect$$$$0000000A  mc_p.l(entry8b.o)
+    0x01000408   0x01000408   0x00000008   Code   RO          831    .ARM.Collect$$$$0000000B  mc_p.l(entry9a.o)
+    0x01000410   0x01000410   0x00000000   Code   RO          833    .ARM.Collect$$$$0000000D  mc_p.l(entry10a.o)
+    0x01000410   0x01000410   0x00000000   Code   RO          835    .ARM.Collect$$$$0000000F  mc_p.l(entry11a.o)
+    0x01000410   0x01000410   0x00000004   Code   RO          824    .ARM.Collect$$$$00002712  mc_p.l(entry2.o)
     0x01000414   0x01000414   0x00000090   Code   RO           14    .text               misc.o
     0x010004a4   0x010004a4   0x00000284   Code   RO           48    .text               system.o
     0x01000728   0x01000728   0x000005c8   Code   RO           70    .text               yc_gpio.o
     0x01000cf0   0x01000cf0   0x0000024c   Code   RO          108    .text               yc_exti.o
     0x01000f3c   0x01000f3c   0x000004e4   Code   RO          126    .text               yc_uart.o
-    0x01001420   0x01001420   0x0000020c   Code   RO          266    .text               main.o
-    0x0100162c   0x0100162c   0x0000002c   Code   RO          291    .text               mc_p.l(uidiv.o)
-    0x01001658   0x01001658   0x00000024   Code   RO          589    .text               mc_p.l(init.o)
-    0x0100167c   0x0100167c   0x0000001a   Code   RO           80    i.__ARM_common_switch8  yc_gpio.o
-    0x01001696   0x01001696   0x0000000e   Code   RO          603    i.__scatterload_copy  mc_p.l(handlers.o)
-    0x010016a4   0x010016a4   0x00000002   Code   RO          604    i.__scatterload_null  mc_p.l(handlers.o)
-    0x010016a6   0x010016a6   0x0000000e   Code   RO          605    i.__scatterload_zeroinit  mc_p.l(handlers.o)
-    0x010016b4   0x010016b4   0x00000008   Data   RO           49    .constdata          system.o
-    0x010016bc   0x010016bc   0x000000ae   Data   RO           71    .constdata          yc_gpio.o
-    0x0100176a   0x0100176a   0x00000027   Data   RO          109    .constdata          yc_exti.o
-    0x01001791   0x01001791   0x000000d0   Data   RO          128    .constdata          yc_uart.o
-    0x01001861   0x01001861   0x00000003   PAD
-    0x01001864   0x01001864   0x00000025   Data   RO           50    .conststring        system.o
-    0x01001889   0x01001889   0x00000003   PAD
-    0x0100188c   0x0100188c   0x00000020   Data   RO          601    Region$$Table       anon$$obj.o
+    0x01001420   0x01001420   0x000001ec   Code   RO          142    .text               yc_systick.o
+    0x0100160c   0x0100160c   0x00000294   Code   RO          162    .text               yc_adc.o
+    0x010018a0   0x010018a0   0x00000140   Code   RO          178    .text               yc_sysctrl.o
+    0x010019e0   0x010019e0   0x0000029c   Code   RO          194    .text               yc_timer.o
+    0x01001c7c   0x01001c7c   0x00000144   Code   RO          210    .text               yc_spi.o
+    0x01001dc0   0x01001dc0   0x00000068   Code   RO          234    .text               yc_otp.o
+    0x01001e28   0x01001e28   0x000004b4   Code   RO          247    .text               yc_ipc.o
+    0x010022dc   0x010022dc   0x0000003c   Code   RO          270    .text               yc_power.o
+    0x01002318   0x01002318   0x0000008a   Code   RO          286    .text               hal_log.o
+    0x010023a2   0x010023a2   0x00000002   PAD
+    0x010023a4   0x010023a4   0x00000260   Code   RO          345    .text               hal_print.o
+    0x01002604   0x01002604   0x00000038   Code   RO          366    .text               hal_systick.o
+    0x0100263c   0x0100263c   0x00000022   Code   RO          380    .text               hal_adc.o
+    0x0100265e   0x0100265e   0x00000002   PAD
+    0x01002660   0x01002660   0x00000050   Code   RO          395    .text               hal_time.o
+    0x010026b0   0x010026b0   0x00000044   Code   RO          412    .text               hal_button.o
+    0x010026f4   0x010026f4   0x0000001e   Code   RO          429    .text               hal_led.o
+    0x01002712   0x01002712   0x00000002   PAD
+    0x01002714   0x01002714   0x0000003c   Code   RO          444    .text               hal_init.o
+    0x01002750   0x01002750   0x00000258   Code   RO          459    .text               yc_lpm.o
+    0x010029a8   0x010029a8   0x000002a0   Code   RO          474    .text               middle_print_list.o
+    0x01002c48   0x01002c48   0x000002d0   Code   RO          501    .text               middle_print.o
+    0x01002f18   0x01002f18   0x000000b8   Code   RO          518    .text               middle_mmu.o
+    0x01002fd0   0x01002fd0   0x000000a8   Code   RO          536    .text               main.o
+    0x01003078   0x01003078   0x0000002c   Code   RO          551    .text               mc_p.l(uidiv.o)
+    0x010030a4   0x010030a4   0x00000028   Code   RO          553    .text               mc_p.l(idiv.o)
+    0x010030cc   0x010030cc   0x00000024   Code   RO          555    .text               mc_p.l(memcpya.o)
+    0x010030f0   0x010030f0   0x00000024   Code   RO          557    .text               mc_p.l(memseta.o)
+    0x01003114   0x01003114   0x00000014   Code   RO          821    .text               mc_p.l(uread4.o)
+    0x01003128   0x01003128   0x00000060   Code   RO          838    .text               mc_p.l(uldiv.o)
+    0x01003188   0x01003188   0x00000000   Code   RO          840    .text               mc_p.l(iusefp.o)
+    0x01003188   0x01003188   0x00000164   Code   RO          841    .text               mf_p.l(dadd.o)
+    0x010032ec   0x010032ec   0x000000d0   Code   RO          843    .text               mf_p.l(dmul.o)
+    0x010033bc   0x010033bc   0x000000f0   Code   RO          845    .text               mf_p.l(ddiv.o)
+    0x010034ac   0x010034ac   0x00000040   Code   RO          847    .text               mf_p.l(dfixul.o)
+    0x010034ec   0x010034ec   0x00000028   Code   RO          849    .text               mf_p.l(cdrcmple.o)
+    0x01003514   0x01003514   0x00000024   Code   RO          851    .text               mc_p.l(init.o)
+    0x01003538   0x01003538   0x00000020   Code   RO          853    .text               mc_p.l(llshl.o)
+    0x01003558   0x01003558   0x00000022   Code   RO          855    .text               mc_p.l(llushr.o)
+    0x0100357a   0x0100357a   0x00000026   Code   RO          857    .text               mc_p.l(llsshr.o)
+    0x010035a0   0x010035a0   0x000000be   Code   RO          859    .text               mf_p.l(depilogue.o)
+    0x0100365e   0x0100365e   0x00000002   PAD
+    0x01003660   0x01003660   0x0000000c   Ven    RO          871    Veneer$$Code        anon$$obj.o
+    0x0100366c   0x0100366c   0x00000020   Code   RO          794    i.__0printf         mc_p.l(printfa.o)
+    0x0100368c   0x0100368c   0x0000002c   Code   RO          799    i.__0vsnprintf      mc_p.l(printfa.o)
+    0x010036b8   0x010036b8   0x0000002e   Code   RO          861    i.__ARM_clz         mf_p.l(depilogue.o)
+    0x010036e6   0x010036e6   0x0000001a   Code   RO           80    i.__ARM_common_switch8  yc_gpio.o
+    0x01003700   0x01003700   0x0000000e   Code   RO          865    i.__scatterload_copy  mc_p.l(handlers.o)
+    0x0100370e   0x0100370e   0x00000002   Code   RO          866    i.__scatterload_null  mc_p.l(handlers.o)
+    0x01003710   0x01003710   0x0000000e   Code   RO          867    i.__scatterload_zeroinit  mc_p.l(handlers.o)
+    0x0100371e   0x0100371e   0x00000002   PAD
+    0x01003720   0x01003720   0x00000174   Code   RO          801    i._fp_digits        mc_p.l(printfa.o)
+    0x01003894   0x01003894   0x000006ec   Code   RO          802    i._printf_core      mc_p.l(printfa.o)
+    0x01003f80   0x01003f80   0x00000020   Code   RO          803    i._printf_post_padding  mc_p.l(printfa.o)
+    0x01003fa0   0x01003fa0   0x0000002c   Code   RO          804    i._printf_pre_padding  mc_p.l(printfa.o)
+    0x01003fcc   0x01003fcc   0x00000016   Code   RO          805    i._snputc           mc_p.l(printfa.o)
+    0x01003fe2   0x01003fe2   0x00000002   PAD
+    0x01003fe4   0x01003fe4   0x00000008   Data   RO           49    .constdata          system.o
+    0x01003fec   0x01003fec   0x000000ae   Data   RO           71    .constdata          yc_gpio.o
+    0x0100409a   0x0100409a   0x00000027   Data   RO          109    .constdata          yc_exti.o
+    0x010040c1   0x010040c1   0x000000d0   Data   RO          128    .constdata          yc_uart.o
+    0x01004191   0x01004191   0x00000031   Data   RO          143    .constdata          yc_systick.o
+    0x010041c2   0x010041c2   0x00000009   Data   RO          163    .constdata          yc_adc.o
+    0x010041cb   0x010041cb   0x00000040   Data   RO          179    .constdata          yc_sysctrl.o
+    0x0100420b   0x0100420b   0x0000005f   Data   RO          195    .constdata          yc_timer.o
+    0x0100426a   0x0100426a   0x00000009   Data   RO          211    .constdata          yc_spi.o
+    0x01004273   0x01004273   0x00000a28   Data   RO          226    .constdata          bt_code.o
+    0x01004c9b   0x01004c9b   0x00000100   Data   RO          476    .constdata          middle_print_list.o
+    0x01004d9b   0x01004d9b   0x00000001   PAD
+    0x01004d9c   0x01004d9c   0x00000026   Data   RO          503    .constdata          middle_print.o
+    0x01004dc2   0x01004dc2   0x00000002   PAD
+    0x01004dc4   0x01004dc4   0x00000025   Data   RO           50    .conststring        system.o
+    0x01004de9   0x01004de9   0x00000003   PAD
+    0x01004dec   0x01004dec   0x00000020   Data   RO          863    Region$$Table       anon$$obj.o
 
 
 ==============================================================================
@@ -725,19 +1118,40 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
+         0          0       2600          0          0        610   bt_code.o
        312        118          0          0          0       2212   flash_start.o
-       524        218          0          0         10       2059   main.o
+        34          0          0          0          0        483   hal_adc.o
+        68          4          0          8          0       1083   hal_button.o
+        60         20          0          0          0        463   hal_init.o
+        30          0          0          0          0        475   hal_led.o
+       138          0          0          0          0      11880   hal_log.o
+       608         10          0          0          0       3877   hal_print.o
+        56          8          0          4          0       1589   hal_systick.o
+        80          8          0          4          0       1339   hal_time.o
+       168         82          0          0          0        691   main.o
+       184         26          0          0       6528       2087   middle_mmu.o
+       720         88         38          4        108       3336   middle_print.o
+       672         82        256          0        484       5271   middle_print_list.o
        144         16          0          0          0      27592   misc.o
         20          4        192          0          0        440   startup.o
        644         42         45          0          0       3843   system.o
+       660         74          9          0          0       4797   yc_adc.o
        588         58         39         24          0       4510   yc_exti.o
-      1506         68        174          0          0       7692   yc_gpio.o
+      1506         68        174          0          0      11412   yc_gpio.o
+      1204        126          0         12          0      27052   yc_ipc.o
+       600         42          0          4          0       4083   yc_lpm.o
+       104          8          0          0          0       1970   yc_otp.o
+        60          4          0          0          0       1292   yc_power.o
+       324         58          9          0          0       3672   yc_spi.o
+       320         86         64          0          0      23822   yc_sysctrl.o
+       492         80         49          4          0       3454   yc_systick.o
+       668         58         95          0          0      25110   yc_timer.o
       1252         88        208          0       2048       7084   yc_uart.o
 
     ----------------------------------------------------------------------
-      4990        612        696         24       2060      55432   Object Totals
-         0          0         32          0          0          0   (incl. Generated)
-         0          0          6          0          2          0   (incl. Padding)
+     11734       1262       3816         64       9168     185529   Object Totals
+        12          4         32          0          0          0   (incl. Generated)
+         6          0          6          0          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -752,21 +1166,39 @@ Image component sizes
          0          0          0          0          0          0   entry8b.o
          8          4          0          0          0          0   entry9a.o
         30          0          0          0          0          0   handlers.o
+        40          0          0          0          0         72   idiv.o
         36          8          0          0          0         68   init.o
+         0          0          0          0          0          0   iusefp.o
+        32          0          0          0          0         68   llshl.o
+        38          0          0          0          0         68   llsshr.o
+        34          0          0          0          0         68   llushr.o
+        36          0          0          0          0         60   memcpya.o
+        36          0          0          0          0        100   memseta.o
+      2318        102          0          0          0        544   printfa.o
+         0          0          0          4          0          0   stdout.o
         44          0          0          0          0         72   uidiv.o
+        96          0          0          0          0         84   uldiv.o
+        20          0          0          0          0         60   uread4.o
+        40          2          0          0          0         68   cdrcmple.o
+       356          4          0          0          0        140   dadd.o
+       240          6          0          0          0         84   ddiv.o
+       236          0          0          0          0        216   depilogue.o
+        64         10          0          0          0         68   dfixul.o
+       208          6          0          0          0         88   dmul.o
 
     ----------------------------------------------------------------------
-       130         16          0          0          0        140   Library Totals
-         0          0          0          0          0          0   (incl. Padding)
+      3930        146          0          4          0       1928   Library Totals
+         6          0          0          0          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Name
 
-       130         16          0          0          0        140   mc_p.l
+      2780        118          0          4          0       1264   mc_p.l
+      1144         28          0          0          0        664   mf_p.l
 
     ----------------------------------------------------------------------
-       130         16          0          0          0        140   Library Totals
+      3930        146          0          4          0       1928   Library Totals
 
     ----------------------------------------------------------------------
 
@@ -775,15 +1207,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      5120        628        696         24       2060      55056   Grand Totals
-      5120        628        696         24       2060      55056   ELF Image Totals
-      5120        628        696         24          0          0   ROM Totals
+     15664       1408       3816         68       9168     184117   Grand Totals
+     15664       1408       3816         68       9168     184117   ELF Image Totals
+     15664       1408       3816         68          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 5816 (   5.68kB)
-    Total RW  Size (RW Data + ZI Data)              2084 (   2.04kB)
-    Total ROM Size (Code + RO Data + RW Data)       5840 (   5.70kB)
+    Total RO  Size (Code + RO Data)                19480 (  19.02kB)
+    Total RW  Size (RW Data + ZI Data)              9236 (   9.02kB)
+    Total ROM Size (Code + RO Data + RW Data)      19548 (  19.09kB)
 
 ==============================================================================
 

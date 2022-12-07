@@ -77,7 +77,7 @@ void SysTick_Config(uint32_t ReloadValue)
                      (1 << SYSTICK_CSR_TICKINT));
 }
 
-void SysTick_disable()
+void SysTick_disable(void)
 {
     *SYSTICK_CSR &= ~(((uint32_t)1) << SYSTICK_CSR_ENABLE);
 

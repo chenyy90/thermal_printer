@@ -39,9 +39,6 @@ int middle_print_latch_to_heat_handle(void);
 int middle_print_heat_haddle(void);
 
 int middle_print_is_busy(void);
-int middle_print_start(uint32_t speed_time, uint32_t step_target);
-int middle_print_stop(void);
-
 int middle_print_progress(void);
 int middle_print_init(void);
 

@@ -9,9 +9,11 @@
 #include "middle_print.h"
 #include "middle_print_list.h"
 #include "hal_print.h"
+#include "hal_log.h"
 
 static middle_print_manager_struct middle_print_mgr;
 static middle_print_list_struct *middle_print_list;
+static uint8_t middle_print_line_data[MIDDLE_PRINT_DATA_SIZE] = {0};
 
 #define MOTOR_SPWM_LEN        (18)
 #define MOTOR_SPWM_PHASE1     (1 * MOTOR_SPWM_LEN)
@@ -20,9 +22,14 @@ static middle_print_list_struct *middle_print_list;
 #define MOTOR_SPWM_PHASE4     (4 * MOTOR_SPWM_LEN)
 #define MOTOR_LINEFEED_STEP   (MOTOR_SPWM_LEN * 2)   /* 300DPI:走纸1行2步; 200DPI:3步 */
 
+// const uint16_t motor_spwm_table[MOTOR_SPWM_LEN + 1] = {
+//     0, 20, 40, 60, 80, 98, 116, 134, 150, 165, 179, 191, 202, 212, 219, 226, 230, 233, 234,
+// };
 const uint16_t motor_spwm_table[MOTOR_SPWM_LEN + 1] = {
-    0, 20, 40, 60, 80, 98, 116, 134, 150, 165, 179, 191, 202, 212, 219, 226, 230, 233, 234,
+ 292, 308, 324, 339, 345, 353, 367, 375, 380, 393, 415, 420, 425, 430, 435, 439, 443, 447, 451
 };
+
+static int middle_print_stop(void);
 
 // 电机驱动处理
 int middle_print_motor_spwm_handle(void)
@@ -95,7 +102,10 @@ static int middle_print_motor_linefeed_completed(void)
 // 打印数据装载
 static int middle_print_line_data_latch(void)
 {
-
+    memcpy(&middle_print_line_data,
+            &middle_print_list->segment_data[middle_print_mgr.slice_number],
+            MIDDLE_PRINT_DATA_SIZE);
+    hal_print_send_data(middle_print_line_data, MIDDLE_PRINT_DATA_SIZE);
     return 0;
 }
 
@@ -144,6 +154,7 @@ int middle_print_heat_haddle(void)
 
             /* 当前行都打印完毕, 回收打印数据空间，等待马达走行完成 */
             middle_print_list_destory(middle_print_list);
+            middle_print_list = NULL;
 
             /* 取出下一行数据 */
             middle_print_list = middle_print_list_get();
@@ -154,6 +165,9 @@ int middle_print_heat_haddle(void)
             }
             else
             {
+                /* 加热时间 */
+                middle_print_mgr.slice_heat_time = middle_print_list->heat_time;
+
                 if (middle_print_motor_linefeed_completed())
                 {
                     /* 马达行进一行完成，开始进行下一行数据进行打印 */
@@ -191,35 +205,67 @@ int middle_print_is_busy(void)
 }
 
 // 打印开始
-int middle_print_start(uint32_t speed_time, uint32_t step_target)
+static int middle_print_start(void)
 {
     HAL_PRT_MOTOR_ENABLE();
+    middle_print_mgr.print_sta = MIDDLE_PRT_STA_IDLE;
+    middle_print_mgr.slice_number = 0;
+    middle_print_mgr.slice_total = middle_print_list->segment_number;
+    middle_print_mgr.slice_heat_time = middle_print_list->heat_time;
+
     middle_print_mgr.motor_sta = MIDDLE_PRT_MTR_STA_FEED;
-    middle_print_mgr.motor_step_target = step_target;
     middle_print_mgr.motor_step = 0;
     middle_print_mgr.motor_step_total = 0;
     middle_print_mgr.motor_step_move = 0;
-    middle_print_mgr.motor_speed_time_last = speed_time;
+    middle_print_mgr.motor_speed_time_last = middle_print_list->motor_speed_time;
+    middle_print_mgr.motor_speed_time = middle_print_list->motor_speed_time;
+    middle_print_mgr.motor_step_target = 0xffffffff;
+    hal_print_motor_speed_time(middle_print_mgr.motor_speed_time);
+    HAL_LOGD("MID PRN", "print start\r\n");
     return 0;
 }
 
 // 打印结束
-int middle_print_stop(void)
+static int middle_print_stop(void)
 {
     hal_print_stop();
     HAL_PRT_MOTOR_DISABLE();
+    middle_print_mgr.print_sta = MIDDLE_PRT_STA_IDLE;
     middle_print_mgr.motor_sta = MIDDLE_PRT_MTR_STA_IDLE;
+    HAL_LOGD("MID PRN", "print stop\r\n");
     return 0;
 }
 
 // 打印处理，循环调用
 int middle_print_progress(void)
 {
+    if (middle_print_list_is_empty())
+    {
+        return 0;
+    }
+
+    if (middle_print_mgr.print_sta == MIDDLE_PRT_STA_IDLE)
+    {
+        /* 取出数据 */
+        middle_print_list = middle_print_list_get();
+        if (middle_print_list == NULL)
+        {
+            return -1;
+        }
+
+        /* 启动打印工作 */
+        middle_print_start();
+        middle_print_line_data_latch();
+    }
+
     return 0;
 }
 
 // 打印初始化
 int middle_print_init(void)
 {
+    memset(&middle_print_mgr, 0, sizeof(middle_print_mgr));
+    middle_print_mgr.print_sta = MIDDLE_PRT_STA_IDLE;
+    middle_print_mgr.motor_sta = MIDDLE_PRT_MTR_STA_IDLE;
     return 0;
 }

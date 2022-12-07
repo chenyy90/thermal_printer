@@ -1,3 +1,11 @@
+/*******************************************************
+ * File Name    : hal_log.c
+ * Description  : hardware log unit.
+ -------------------------------------------------------
+ Version         |      Date         |         Author 
+ -------------------------------------------------------
+ 1.0             |      2022-11-23   |         oem
+********************************************************/
 #include "hal_log.h"
 #include "hal_config.h"
 
@@ -48,3 +56,11 @@ int hal_log_init(void)
     UART_SetITTimeout(UART0, 0xff);
     return 0;
 }
+
+// void UART0_IRQHandler(void)
+// {
+//     if (UART_IsRXFIFONotEmpty(UART0))
+//     {
+//         UART_RecvBuf(UART0, buf, 9);
+//     }
+// }
