@@ -103,7 +103,7 @@ static int middle_print_motor_linefeed_completed(void)
 static int middle_print_line_data_latch(void)
 {
     memcpy(&middle_print_line_data,
-            &middle_print_list->segment_data[middle_print_mgr.slice_number],
+            &middle_print_list->segment_data[middle_print_mgr.slice_number][0],
             MIDDLE_PRINT_DATA_SIZE);
     hal_print_send_data(middle_print_line_data, MIDDLE_PRINT_DATA_SIZE);
     return 0;
@@ -127,13 +127,13 @@ int middle_print_heat_haddle(void)
         /* 数据装载完毕 */
         HAL_PRT_NLAT_HIGH();
         middle_print_mgr.print_sta = MIDDLE_PRT_STA_LATCH_TO_STROBE;
-        hal_print_heat_time(5);
+        hal_print_heat_time(10);
     }
     else if (middle_print_mgr.print_sta == MIDDLE_PRT_STA_LATCH_TO_STROBE)
     {
         /* 开始加热 */
-        middle_print_mgr.print_sta = MIDDLE_PRT_STA_STROBE;
         HAL_PRT_STB_HIGH();
+        middle_print_mgr.print_sta = MIDDLE_PRT_STA_STROBE;
         hal_print_heat_time(middle_print_mgr.slice_heat_time);
     }
     else if (middle_print_mgr.print_sta == MIDDLE_PRT_STA_STROBE)
@@ -176,7 +176,7 @@ int middle_print_heat_haddle(void)
                 else
                 {
                     /* 等待走纸完成 */
-                    hal_print_heat_time(1);
+                    hal_print_heat_time(2);
                 }
             }
         }
@@ -191,7 +191,7 @@ int middle_print_heat_haddle(void)
         else
         {
             /* 等待走纸完成 */
-            hal_print_heat_time(1);
+            hal_print_heat_time(2);
         }
     }
 

@@ -12,10 +12,9 @@
 int hal_print_send_data(uint8_t *data, uint16_t datalen)
 {
     DMA_SRC_ADDR(SPI0) = (int)data;
-    DMA_LEN(SPI0)      = (datalen << 16);
-    DMA_START(SPI0)    = (1 << DMA_START_BIT);
+    DMA_LEN(SPI0) = (datalen << 16);
+    DMA_START(SPI0) = (1 << DMA_START_BIT);
     while (!(DMA_STATUS(SPI0) & 1));
-
     middle_print_latch_to_heat_handle();
     return 0;
 }
