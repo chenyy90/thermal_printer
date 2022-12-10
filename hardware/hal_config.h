@@ -6,14 +6,17 @@
 #include <string.h>
 #include <stdarg.h>
 
+#include "type.h"
 #include "yc3121.h"
 #include "yc_sysctrl.h"
 #include "yc_systick.h"
 #include "yc_adc.h"
+#include "yc_bt.h"
 #include "yc_gpio.h"
 #include "yc_exti.h"
 #include "yc_spi.h"
 #include "yc_power.h"
+#include "yc_qspi.h"
 #include "misc.h"
 
 #ifndef SystemCoreClock

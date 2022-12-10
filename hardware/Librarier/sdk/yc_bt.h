@@ -16,7 +16,6 @@
 #include "yc_uart.h"
 #include "yc_ipc.h"
 
-
 #define HCI_CMD                           0x01
 #define HCI_EVENT                         0x02
 #define MAX_BLUETOOTH_DATA_LEN            255

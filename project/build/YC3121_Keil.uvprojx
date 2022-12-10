@@ -16,7 +16,7 @@
         <TargetCommonOption>
           <Device>ARMCM0</Device>
           <Vendor>ARM</Vendor>
-          <PackID>ARM.CMSIS.5.9.0</PackID>
+          <PackID>ARM.CMSIS.5.7.0</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000,0x00020000) IROM(0x00000000,0x00040000) CPUTYPE("Cortex-M0") CLOCK(12000000) ESEL ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -313,7 +313,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>3</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>0</OneElfS>
@@ -326,7 +326,7 @@
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
-            <uGnu>1</uGnu>
+            <uGnu>0</uGnu>
             <useXO>0</useXO>
             <v6Lang>1</v6Lang>
             <v6LangP>1</v6LangP>
@@ -464,6 +464,16 @@
               <FilePath>..\..\hardware\Librarier\sdk\yc_power.c</FilePath>
             </File>
             <File>
+              <FileName>yc_bt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\hardware\Librarier\sdk\yc_bt.c</FilePath>
+            </File>
+            <File>
+              <FileName>yc_lpm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\hardware\Librarier\sdk\yc_lpm.c</FilePath>
+            </File>
+            <File>
               <FileName>hal_log.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\hardware\hal_log.c</FilePath>
@@ -504,9 +514,14 @@
               <FilePath>..\..\hardware\hal_init.c</FilePath>
             </File>
             <File>
-              <FileName>yc_lpm.c</FileName>
+              <FileName>hal_bt.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\hardware\Librarier\sdk\yc_lpm.c</FilePath>
+              <FilePath>..\..\hardware\hal_bt.c</FilePath>
+            </File>
+            <File>
+              <FileName>yc_qspi.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\hardware\Librarier\sdk\yc_qspi.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -528,6 +543,11 @@
               <FileType>1</FileType>
               <FilePath>..\middle\middle_mmu.c</FilePath>
             </File>
+            <File>
+              <FileName>middle_protocol.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\middle\middle_protocol.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -537,6 +557,11 @@
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\app\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_esc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\app\app_esc.c</FilePath>
             </File>
           </Files>
         </Group>

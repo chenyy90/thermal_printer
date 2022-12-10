@@ -22,6 +22,7 @@ int hal_init(void)
     hal_adc_init();
     hal_button_init();
     hal_time_init();
+    hal_bt_init();
 
     return 0;
 }

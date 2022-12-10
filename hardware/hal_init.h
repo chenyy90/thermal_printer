@@ -5,6 +5,7 @@
 #include "hal_systick.h"
 #include "hal_log.h"
 #include "hal_adc.h"
+#include "hal_bt.h"
 #include "hal_led.h"
 #include "hal_button.h"
 #include "hal_print.h"

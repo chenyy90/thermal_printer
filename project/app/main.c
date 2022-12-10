@@ -1,8 +1,17 @@
+/*******************************************************
+ * File Name    : main.c
+ * Description  : main function
+ -------------------------------------------------------
+ Version         |      Date         |         Author 
+ -------------------------------------------------------
+ 1.0             |      2022-11-10   |         oem
+********************************************************/
 #include "hal_init.h"
 #include "hal_log.h"
 #include "middle_mmu.h"
 #include "middle_print.h"
 #include "middle_print_list.h"
+#include "middle_protocol.h"
 
 static int period_execute(void)
 {
@@ -20,6 +29,7 @@ int main(void)
 
     middle_mmu_init();
     middle_print_init();
+    middle_protocol_init();
     HAL_LOGD("MIAN", "main while ...\r\n");
 
     while(1)
@@ -48,5 +58,6 @@ int main(void)
         }
 
         middle_print_progress();
+        middle_protocol_progress();
     }
 }
