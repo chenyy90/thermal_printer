@@ -198,6 +198,12 @@ int middle_print_heat_haddle(void)
     return 0;
 }
 
+// 每行电机步数
+int middle_print_motor_linefeed_step(void)
+{
+    return MOTOR_LINEFEED_STEP;
+}
+
 // 判断是否正在打印
 int middle_print_is_busy(void)
 {

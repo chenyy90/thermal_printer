@@ -38,6 +38,7 @@ int middle_print_motor_spwm_handle(void);
 int middle_print_latch_to_heat_handle(void);
 int middle_print_heat_haddle(void);
 
+int middle_print_motor_linefeed_step(void);
 int middle_print_is_busy(void);
 int middle_print_progress(void);
 int middle_print_init(void);

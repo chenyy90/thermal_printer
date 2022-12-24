@@ -26,7 +26,7 @@ int hal_systick_delay(uint32_t t)
 int hal_systick_init(void)
 {
     /* systick = 1ms */
-    SysTick_Config(12000000);
+    SysTick_Config(CPU_MHZ / 1000);
     return 0;
 }
 

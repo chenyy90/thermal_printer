@@ -14,7 +14,7 @@
 #define HAL_PRT_STB_CLOCK
 #define HAL_PRT_STB_PORT            GPIOB
 #define HAL_PRT_STB_PIN             GPIO_Pin_2
-#define HAL_PRT_STB_HIGH()          GPIO_SetBits(HAL_PRT_STB_PORT, HAL_PRT_STB_PIN);
+#define HAL_PRT_STB_HIGH()          // GPIO_SetBits(HAL_PRT_STB_PORT, HAL_PRT_STB_PIN);
 #define HAL_PRT_STB_LOW()           GPIO_ResetBits(HAL_PRT_STB_PORT, HAL_PRT_STB_PIN);
 
 /* TPH-MOTOR-SLP */

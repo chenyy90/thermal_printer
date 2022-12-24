@@ -130,7 +130,7 @@ static int middle_print_line_data_parse(middle_print_list_struct *list_data, uin
         list_data->segment_data[i] = middle_mmu_alloc(1, MIDDLE_PRINT_DATA_SIZE);
         if (list_data->segment_data[i] == NULL)
         {
-            printf("print segment data malloc falied\r\n");
+            printf("print segment data malloc %d falied\r\n", MIDDLE_PRINT_DATA_SIZE);
             return -1;
         }
 
@@ -140,10 +140,10 @@ static int middle_print_line_data_parse(middle_print_list_struct *list_data, uin
     list_data->segment_ave_dot = seg_ave;
 
     // 计算该行加热时间
-    list_data->heat_time = middle_print_line_heattime(5000, seg_num, seg_ave, 30);
+    list_data->heat_time = middle_print_line_heattime(3000, seg_num, seg_ave, 30);
 
     // 计算电机运行时间
-    list_data->motor_speed_time = 2000 + list_data->heat_time / 12;
+    list_data->motor_speed_time = list_data->heat_time * list_data->segment_number / middle_print_motor_linefeed_step();
 
     // printf("listput : heattime %d, motor %d, segment %d, ave %d\r\n",
     //     list_data->heat_time, list_data->motor_speed_time,
@@ -158,7 +158,6 @@ static int middle_print_line_data_parse(middle_print_list_struct *list_data, uin
     // }
     return 0;
 }
-
 
 // 判断打印列表是否空闲
 int middle_print_list_is_free(void)

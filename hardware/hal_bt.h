@@ -4,5 +4,6 @@
 #include "hal_config.h"
 
 int hal_bt_init(void);
+int hal_bt_progress(void);
 
 #endif

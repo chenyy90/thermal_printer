@@ -57,6 +57,7 @@ int main(void)
             testline = 0;
         }
 
+        hal_bt_progress();
         middle_print_progress();
         middle_protocol_progress();
     }
